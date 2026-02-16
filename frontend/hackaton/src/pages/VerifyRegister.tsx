@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { verifyRegister } from "../api/authApi";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import "../styles/auth.css";
+import "../styles/AuthForm.css";
 
 export default function VerifyRegister() {
     const [code, setCode] = useState("");
@@ -22,19 +22,32 @@ export default function VerifyRegister() {
 
     return (
         <div className="auth-container">
-            <form className="auth-card" onSubmit={handleSubmit}>
-                <h2>Подтверждение</h2>
+            <div className="auth-form-wrapper">
+                <div className="auth-form">
+                    <h2 className="auth-title">
+                        AI chats <br />
+                    </h2>
+                    <h3 className="auth-title3">verification</h3>
 
-                <input
-                    type="text"
-                    placeholder="Введите код"
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                    required
-                />
+                    <form onSubmit={handleSubmit}>
+                        <div className="input-group">
+                            <label className="input-label">code</label>
+                            <input
+                                type="text"
+                                value={code}
+                                onChange={(e) => setCode(e.target.value)}
+                                className="input-field"
+                                placeholder="enter verification code"
+                                required
+                            />
+                        </div>
 
-                <button type="submit">Подтвердить</button>
-            </form>
+                        <button type="submit" className="submit-button">
+                            Подтвердить
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 }
