@@ -1,0 +1,667 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+}
+
+body {
+    background-color: #0f0f0f;
+    color: #e5e5e5;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* ========== СТИЛИ ДЛЯ САЙДБАРА ========== */
+.sidebar {
+    width: 260px;
+    background-color: #1a1a1a;
+    border-right: 1px solid #2a2a2a;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    position: relative;
+}
+
+.logo {
+    padding: 12px 8px 20px 8px;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #2a2a2a;
+    margin-bottom: 16px;
+    
+    background: linear-gradient(90deg, #5900ff 10%, #8400ff 20%, #ff7b00 60%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    color: #b0b0b0;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+}
+
+.nav-btn:hover {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.nav-btn.active {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.nav-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+}
+
+/* ========== СТИЛИ ДЛЯ ПРОФИЛЯ ВНИЗУ ========== */
+.profile-section {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #2a2a2a;
+}
+
+.profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    color: #b0b0b0;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+}
+
+.profile-btn:hover {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.profile-avatar {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-avatar svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    fill: none;
+}
+
+/* ========== ОСНОВНОЙ КОНТЕНТ ========== */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #0f0f0f;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Еле заметный градиент в правой части */
+.main-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, 
+        rgba(89, 0, 255, 0.06) 0%,
+        rgba(132, 0, 255, 0.04) 40%,
+        rgba(255, 123, 0, 0.01) 80%,
+        transparent 95%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ========== СТИЛИ ДЛЯ СТРАНИЦЫ ЧАТА ========== */
+.chat-page {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.chat-header {
+    padding: 20px 30px;
+    border-bottom: 1px solid #222222;
+    background-color: #0f0f0f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.chat-header h1 {
+    font-size: 24px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+/* Обертка для сообщений на всю высоту */
+.messages-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    position: relative;
+    z-index: 2;
+}
+
+.messages-wrapper::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    background: transparent;
+}
+
+.message {
+    display: flex;
+    width: 100%;
+    gap: 12px;
+}
+
+.message.left {
+    justify-content: flex-start;
+}
+
+.message.right {
+    justify-content: flex-end;
+}
+
+/* Аватарка - пустой круг только для нейросетей */
+.message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #404040;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.message-content {
+    max-width: 70%;
+    border-radius: 20px;
+    padding: 16px 20px;
+}
+
+/* Сообщения нейросетей */
+.message.left .message-content {
+    background-color: #2a2a2a7c;
+    backdrop-filter: blur(5px);
+}
+
+/* Сообщения пользователя */
+.message.right .message-content {
+    background-color: #211038;
+    backdrop-filter: blur(5px);
+}
+
+.message-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.message-author {
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.message-time {
+    font-size: 12px;
+    color: #8a8a8a;
+}
+
+.message-text {
+    color: #d0d0d0;
+    font-size: 15px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.input-container {
+    padding: 0 30px 30px 30px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 12px;
+    background-color: #1a1a1a;
+    border-radius: 30px;
+    padding: 5px 5px 5px 20px;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    backdrop-filter: blur(5px);
+}
+
+.input-wrapper:focus-within {
+    border-color: #6e6e6e;
+}
+
+.input-wrapper input {
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 15px;
+    padding: 14px 0;
+    outline: none;
+}
+
+.input-wrapper input::placeholder {
+    color: #5a5a5a;
+}
+
+.send-btn {
+    background-color: #2a2a2a;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    color: #b0b0b0;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(5px);
+}
+
+.send-btn:hover {
+    background-color: #3a3a3a;
+    color: #ffffff;
+}
+
+/* ========== СТИЛИ ДЛЯ МОДАЛЬНОГО ОКНА ========== */
+.agent-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.agent-modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.agent-modal-content {
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.agent-modal.show .agent-modal-content {
+    transform: scale(1);
+}
+
+.agent-modal-content::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    background: transparent;
+}
+
+.agent-modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #2a2a2a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.agent-modal-header h2 {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 600;
+    background: linear-gradient(90deg, #5900ff 10%, #8400ff 40%, #ff6600 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: #8a8a8a;
+    font-size: 28px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-modal:hover {
+    color: #ffffff;
+}
+
+.agent-modal-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.agent-section h3 {
+    color: #b0b0b0;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.agent-section p {
+    color: #ffffff;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.relationship-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.relationship-label {
+    color: #8a8a8a;
+    font-size: 14px;
+}
+
+.relationship-value {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.relationship-value.sympathy {
+    background-color: #271a3a;
+    color: #6200ff;
+}
+
+.relationship-value.antipathy {
+    background-color: #3a1a25;
+    color: #ff0040;
+}
+
+.relationship-value.neutral {
+    background-color: #2a2a2a;
+    color: #b0b0b0;
+}
+
+/* ========== ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ДЛЯ МОДАЛЬНОГО ОКНА ========== */
+
+/* Секция с аватаром */
+.agent-avatar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.modal-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1px solid #494949;
+}
+
+.change-avatar-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: transparent;
+    border: 1px solid #404040;
+    border-radius: 30px;
+    color: #b0b0b0;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.change-avatar-btn:hover {
+    border-color: #616161;
+    color: #ffffff;
+    background-color: #2a2a2a;
+}
+
+.change-avatar-btn svg {
+    stroke: currentColor;
+}
+
+/* Заголовок секции с кнопкой смены */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.change-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background-color: transparent;
+    border: 1px solid #404040;
+    border-radius: 20px;
+    color: #8a8a8a;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.change-btn:hover {
+    border-color: #666666;
+    color: #ffffff;
+    background-color: #2a2a2a;
+}
+
+.change-btn svg {
+    stroke: currentColor;
+}
+
+/* Список характеров */
+.personality-list {
+    display: none;
+    margin-top: 12px;
+    padding: 8px;
+    background-color: #2a2a2a;
+    border: 1px solid #404040;
+    border-radius: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.personality-list.show {
+    display: block;
+}
+
+.personality-list::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    background: transparent;
+}
+
+.personality-item {
+    padding: 10px 12px;
+    color: #d0d0d0;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+}
+
+.personality-item:hover {
+    background-color: #3a3a3a;
+    color: #ffffff;
+}
+
+.personality-item:not(:last-child) {
+    border-bottom: 1px solid #3a3a3a;
+}
+
+/* ========== АДАПТИВНОСТЬ ========== */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 80px;
+    }
+    
+    .sidebar .logo {
+        font-size: 12px;
+        padding: 12px 0;
+        text-align: center;
+    }
+    
+    .nav-btn span,
+    .profile-btn span {
+        display: none;
+    }
+    
+    .nav-btn,
+    .profile-btn {
+        justify-content: center;
+        padding: 12px;
+    }
+    
+    .nav-btn svg,
+    .profile-avatar svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .messages-wrapper,
+    .input-container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .message-content {
+        max-width: 85%;
+    }
+    
+    .chat-header {
+        padding: 15px 20px;
+    }
+
+    .message-avatar {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-header {
+        padding: 15px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .chat-header h1 {
+        font-size: 20px;
+        margin-bottom: 0;
+    }
+
+    .messages-wrapper {
+        padding: 20px;
+        gap: 12px;
+    }
+
+    .message-content {
+        padding: 12px 16px;
+        max-width: 90%;
+    }
+
+    .input-container {
+        padding: 0 20px 20px 20px;
+    }
+
+    .agent-modal-content {
+        width: 95%;
+    }
+}

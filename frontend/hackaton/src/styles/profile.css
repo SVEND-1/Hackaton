@@ -1,0 +1,408 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+}
+
+body {
+    background-color: #0f0f0f;
+    color: #e5e5e5;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* ========== СТИЛИ ДЛЯ САЙДБАРА ========== */
+.sidebar {
+    width: 260px;
+    background-color: #1a1a1a;
+    border-right: 1px solid #2a2a2a;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    position: relative;
+}
+
+.logo {
+    padding: 12px 8px 20px 8px;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #2a2a2a;
+    margin-bottom: 16px;
+    
+    background: linear-gradient(90deg, #5900ff 10%, #8400ff 20%, #ff7b00 60%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    color: #b0b0b0;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+}
+
+.nav-btn:hover {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.nav-btn.active {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.nav-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+}
+
+/* ========== СТИЛИ ДЛЯ ПРОФИЛЯ ВНИЗУ ========== */
+.profile-section {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #2a2a2a;
+}
+
+.profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    color: #b0b0b0;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+}
+
+.profile-btn:hover {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.profile-btn.active {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.profile-avatar {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-avatar svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    fill: none;
+}
+
+/* ========== ОСНОВНОЙ КОНТЕНТ ========== */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #0f0f0f;
+    overflow: hidden;
+}
+
+/* ========== СТИЛИ ДЛЯ СТРАНИЦЫ ПРОФИЛЯ ========== */
+.profile-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 30px;
+}
+
+.profile-header {
+    margin-bottom: 30px;
+}
+
+.profile-header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.profile-header p {
+    font-size: 14px;
+    color: #8a8a8a;
+}
+
+/* Сетка профиля */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 30px;
+    flex: 1;
+}
+
+/* Левая колонка */
+.profile-left {
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    height: fit-content;
+}
+
+.profile-avatar-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #2a2a2a;
+    border: 2px solid #404040;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    align-self: center;
+}
+
+.profile-avatar-large svg {
+    width: 60px;
+    height: 60px;
+    stroke: #b0b0b0;
+    fill: none;
+}
+
+.profile-name {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 4px;
+    align-self: center;
+}
+
+.profile-role {
+    font-size: 14px;
+    color: #8a8a8a;
+    margin-bottom: 30px;
+    align-self: center;
+}
+
+/* Основная информация в левом контейнере */
+.profile-info-section {
+    width: 100%;
+}
+
+.profile-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 0;
+}
+
+.profile-info-label {
+    font-size: 12px;
+    color: #8a8a8a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-info-value {
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* Правая колонка - Статистика */
+.profile-right {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 40px 30px;
+    height: fit-content;
+    min-height: auto;
+    align-content: center;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 10px;
+}
+
+.stat-number {
+    font-size: 72px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 12px;
+    line-height: 1.1;
+    
+}
+
+.stat-label {
+    font-size: 18px;
+    color: #929292;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+/* Стили для скролла */
+.profile-page::-webkit-scrollbar {
+    width: 8px;
+}
+
+.profile-page::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.profile-page::-webkit-scrollbar-thumb {
+    background: #404040;
+    border-radius: 4px;
+}
+
+.profile-page::-webkit-scrollbar-thumb:hover {
+    background: #505050;
+}
+
+/* ========== АДАПТИВНОСТЬ ========== */
+@media (max-width: 1024px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .profile-left {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .stat-number {
+        font-size: 60px;
+    }
+    
+    .stat-label {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 80px;
+    }
+    
+    .sidebar .logo {
+        font-size: 12px;
+        padding: 12px 0;
+        text-align: center;
+    }
+    
+    .nav-btn span,
+    .profile-btn span {
+        display: none;
+    }
+    
+    .nav-btn,
+    .profile-btn {
+        justify-content: center;
+        padding: 12px;
+    }
+    
+    .nav-btn svg,
+    .profile-avatar svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .profile-page {
+        padding: 20px;
+    }
+    
+    .stats-grid {
+        padding: 30px 20px;
+    }
+    
+    .stat-number {
+        font-size: 48px;
+    }
+    
+    .stat-label {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-header h1 {
+        font-size: 28px;
+    }
+    
+    .profile-left {
+        padding: 20px;
+    }
+    
+    .profile-avatar-large {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .profile-name {
+        font-size: 20px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        padding: 25px;
+    }
+    
+    .stat-number {
+        font-size: 56px;
+    }
+    
+    .stat-item {
+        padding: 15px;
+    }
+}

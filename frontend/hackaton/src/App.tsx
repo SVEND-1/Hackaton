@@ -5,6 +5,9 @@ import VerifyRegister from "./pages/VerifyRegister";
 import ForgotPassword from "./pages/ForgotPassword.tsx";
 import VerifyResetCode from "./pages/VerifyResetCode.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
+import Dashboard from "./pages/Dashboard.tsx";
+import Chat from "./pages/Chat.tsx";
+import Profile from "./pages/Profile.tsx";
 
 
 function App() {
@@ -17,6 +20,9 @@ function App() {
                 <Route path="/forgot-password" element={<ForgotPassword/>} />
                 <Route path="/reset-verify" element={<VerifyResetCode />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/chat" element={<Chat />}/>
+                <Route path="/profile" element={<Profile />}/>
             </Routes>
         </BrowserRouter>
     );
