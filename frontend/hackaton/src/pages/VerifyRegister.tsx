@@ -31,20 +31,28 @@ export default function VerifyRegister() {
 
                     <form onSubmit={handleSubmit}>
                         <div className="input-group">
-                            <label className="input-label">code</label>
+                            <label className="input-label">verification code</label>
                             <input
                                 type="text"
                                 value={code}
                                 onChange={(e) => setCode(e.target.value)}
                                 className="input-field"
-                                placeholder="enter verification code"
+                                placeholder="Введите код из email"
                                 required
                             />
                         </div>
 
                         <button type="submit" className="submit-button">
-                            Подтвердить
+                            Подтвердить код
                         </button>
+
+                        <p
+                            onClick={() => navigate("/")}
+                            className="auth-link"
+                            style={{ cursor: "pointer" }}
+                        >
+                            Вернуться к входу
+                        </p>
                     </form>
                 </div>
             </div>

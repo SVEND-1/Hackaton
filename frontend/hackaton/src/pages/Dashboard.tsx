@@ -1,7 +1,12 @@
-
-import "../styles/AuthForm.css";
+import Sidebar from "../components/Dashboard/Sidebar";
+import MainContent from "../components/Dashboard/MainContent";
+import "../styles/dashboard.css";
 
 export default function Dashboard() {
-
-    return
+    return (
+        <div className="app">
+            <Sidebar />
+            <MainContent />
+        </div>
+    );
 }
