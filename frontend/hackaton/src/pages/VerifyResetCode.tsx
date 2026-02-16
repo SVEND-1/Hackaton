@@ -1,22 +1,36 @@
 import { useState } from "react";
-import { verifyRegister } from "../api/authApi";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { verifyResetCode } from "../api/authApi";
 import "../styles/AuthForm.css";
+import "../styles/auth.css";
 
-export default function VerifyRegister() {
-    const [code, setCode] = useState("");
-    const [params] = useSearchParams();
+export default function VerifyResetCode() {
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
 
-    const registrationId = params.get("registrationId") || "";
+    const resetId = searchParams.get("resetId");
+
+    const [code, setCode] = useState("");
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!resetId) {
+            alert("Некорректная ссылка восстановления");
+            return;
+        }
+
         try {
-            await verifyRegister({ registrationId, code });
-            navigate("/dashboard");
-        } catch {
-            alert("Неверный код");
+            const response = await verifyResetCode(resetId, code);
+
+            if (response.data.success) {
+                navigate(`/reset-password?resetId=${resetId}`);
+            } else {
+                alert(response.data.message);
+            }
+
+        } catch (error) {
+            alert("Ошибка проверки кода");
         }
     };
 
@@ -27,7 +41,7 @@ export default function VerifyRegister() {
                     <h2 className="auth-title">
                         AI chats <br />
                     </h2>
-                    <h3 className="auth-title3">verification</h3>
+                    <h3 className="auth-title3">verify reset code</h3>
 
                     <form onSubmit={handleSubmit}>
                         <div className="input-group">
