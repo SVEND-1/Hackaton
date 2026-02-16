@@ -5,7 +5,7 @@ import {
     deleteTask,
     completeTask,
     uncompleteTask,
-    Task,
+    type Task,
 } from "../api/taskApi";
 import "../styles/dashboard.css";
 
