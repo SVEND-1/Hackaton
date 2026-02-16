@@ -81,7 +81,7 @@ export default function Register() {
                         </button>
 
                         <p
-                            onClick={() => navigate("/login")}
+                            onClick={() => navigate("/")}
                             className="auth-link"
                             style={{ cursor: "pointer" }}
                         >

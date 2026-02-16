@@ -16,6 +16,12 @@ export interface RegisterCodeRequest {
     name: string;
 }
 
+export interface ResetPasswordRequest {
+    resetId: string;
+    newPassword: string;
+    confirmPassword: string;
+}
+
 export interface VerifyRegisterRequest {
     registrationId: string;
     code: string;
@@ -35,3 +41,14 @@ export const verifyRegister = (data: VerifyRegisterRequest) =>
 
 export const resendCode = (registrationId: string) =>
     API.post(`/register/resend-code?registrationId=${registrationId}`);
+
+
+export const forgotPassword = (email: string) =>
+    API.post(`/password/forgot?email=${encodeURIComponent(email)}`);
+
+export const verifyResetCode = (resetId: string, code: string) =>
+    API.post(`/password/verify?resetId=${resetId}&code=${code}`);
+
+export const resetPassword = (data: ResetPasswordRequest) =>
+    API.post("/password/reset", data);
+
