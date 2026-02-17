@@ -99,7 +99,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend/hackaton
+      context: ./frontend
       dockerfile: Dockerfile.frontend
     container_name: react-frontend
     ports:
