@@ -4,9 +4,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.example.hackaton.agent.api.dto.response.AgentProfileResponse;
 import org.example.hackaton.agent.db.AgentEntity;
+import org.example.hackaton.agent.db.Mood;
+import org.example.hackaton.agent.db.Personality;
 import org.example.hackaton.agent.domain.AgentService;
 import org.example.hackaton.messages.domain.MessageService;
 import org.springframework.ai.ollama.OllamaChatModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -55,4 +58,15 @@ public class AgentController {
         );
     }
 
+    @PutMapping("/{id}/change-mood")
+    public ResponseEntity<AgentEntity> changeMood(@PathVariable Long id,
+                                             @RequestBody Mood mood) {
+        return ResponseEntity.ok(agentService.changeMood(id,mood));
+    }
+
+    @PutMapping("/{id}/change-personality")
+    public ResponseEntity<AgentEntity> changePersonality(@PathVariable Long id,
+                                                         @RequestBody Personality personality) {
+        return ResponseEntity.ok(agentService.changePersonality(id,personality));
+    }
 }

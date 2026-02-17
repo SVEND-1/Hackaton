@@ -64,6 +64,18 @@ public class MessageService {
         return repository.save(entity);
     }
 
+    @Transactional
+    public MessageEntity saveEvent(String content, Long chatId) {
+        MessageEntity entity = MessageEntity.builder()
+                .type(TypeMessage.DEEPSEK)
+                .content(content)
+                .createdAt(LocalDateTime.now())
+                .agent(null)
+                .chat(chatService.getChat(chatId))
+                .build();
+        return repository.save(entity);
+    }
+
     public String lastMessage(Long chatId) {
         Optional<MessageEntity> message = repository.findFirstByChatIdOrderByCreatedAtDesc(chatId);
         if(message.isPresent()) {

@@ -109,6 +109,10 @@ public class SendMessageIAService {
         return dialogHistory;
     }
 
+    public void event(String event, Long chatId) {
+        messageService.saveEvent("Теперь оба собеседника должны: " + event, chatId);
+    }
+
     private String buildFullContext(List<MessageEntity> messages) {
         return messages.stream()
                 .map(m -> String.format("[%s] %s: %s",
