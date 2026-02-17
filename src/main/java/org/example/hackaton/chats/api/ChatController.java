@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.hackaton.agent.api.dto.response.AgentDTO;
 import org.example.hackaton.chats.api.dto.responese.ChatResponse;
 import org.example.hackaton.chats.domain.ChatService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +17,11 @@ public class ChatController {
     private final ChatService chatService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<ChatResponse> getMessage(@PathVariable Long id) {
+    public ResponseEntity<ChatResponse> getMessage(@PathVariable Long id ) {
         return ResponseEntity.ok(chatService.getChatDTO(id));
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Boolean> chat(
             @RequestParam String name,
             @RequestBody Set<AgentDTO> agents) {
