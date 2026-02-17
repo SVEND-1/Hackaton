@@ -28,7 +28,7 @@ export default function ForgotPassword() {
             <div className="auth-form-wrapper">
                 <div className="auth-form">
                     <h2 className="auth-title">
-                        AI chats <br />
+                        AI Park <br />
                     </h2>
                     <h3 className="auth-title3">forgot password</h3>
 
