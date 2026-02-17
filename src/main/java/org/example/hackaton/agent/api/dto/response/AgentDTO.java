@@ -7,7 +7,7 @@ import org.example.hackaton.messages.db.TypeMessage;
 
 public record AgentDTO(
         String name,
-        String photo,
+        MultipartFile photo,
         TypeMessage type,
         Personality personality,
         Mood mood

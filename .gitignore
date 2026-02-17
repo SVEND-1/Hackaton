@@ -37,3 +37,6 @@ logs
 
 # Minio
 minio
+
+# Tests
+src/main/java/org/example/hackaton/test
