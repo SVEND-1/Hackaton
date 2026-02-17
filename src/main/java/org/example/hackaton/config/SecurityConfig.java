@@ -70,7 +70,7 @@ public class SecurityConfig {
                             .requestMatchers(
                                     "/test","/chooseTest","/createTest","/result","/dashboard",
                                     "/api/user-test/**","/api/user-answer","/api/users/**","/api/tests/**",
-                                    "/api/questions"
+                                    "/api/questions","/tests/jwt"
                             ).authenticated()
 
                             .anyRequest().permitAll()

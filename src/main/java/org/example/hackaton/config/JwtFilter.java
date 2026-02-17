@@ -2,30 +2,30 @@ package org.example.hackaton.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.hackaton.users.api.dto.users.response.UserDTO;
+import org.example.hackaton.users.domain.UserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final UserDetailsService userDetailsService;
+    private final UserService userService;
 
-    public JwtFilter(JwtTokenProvider jwtTokenProvider, UserDetailsService userDetailsService) {
+    public JwtFilter(JwtTokenProvider jwtTokenProvider, UserService userService) {
         this.jwtTokenProvider = jwtTokenProvider;
-        this.userDetailsService = userDetailsService;
+        this.userService = userService;
     }
 
     @Override
@@ -49,61 +49,30 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-
-        String token = null;
-
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            token = authHeader.substring(7);
-            logger.info("JWT найден в заголовке Authorization");
-        }
-
-        else {
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if ("jwtToken".equals(cookie.getName())) {
-                        token = cookie.getValue();
-                        logger.info("JWT найден в cookie");
-                        break;
-                    }
-                }
+        try {
+            String authHeader = request.getHeader("Authorization");
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                filterChain.doFilter(request, response);
+                return;
             }
-        }
 
-        if (token != null) {
-            try {
-                if (jwtTokenProvider.isValidToken(token)) {
-                    String email = jwtTokenProvider.getEmailFromToken(token);
-                    String role = jwtTokenProvider.getRoleFromToken(token);
+            String token = authHeader.substring(7);
 
-                    logger.info("JWT валиден для email: " + email + ", role: " + role);
+            String email = jwtTokenProvider.getEmailFromToken(token);
 
-                    UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+            if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDTO user = userService.findUserByEmail(email);
 
-                    UsernamePasswordAuthenticationToken auth =
-                            new UsernamePasswordAuthenticationToken(
-                                    userDetails,
-                                    null,
-                                    Collections.singleton(new SimpleGrantedAuthority("ROLE_" + role))
-                            );
-                    auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                List<SimpleGrantedAuthority> authorities = Collections.singletonList(user.role().toAuthority());
 
-                    SecurityContextHolder.getContext().setAuthentication(auth);
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user, null, authorities);
 
-                    logger.info("Аутентификация установлена для: " + email);
-                } else {
-                    logger.warn("Невалидный JWT токен");
-                    Cookie cookie = new Cookie("jwtToken", null);
-                    cookie.setPath("/");
-                    cookie.setMaxAge(0);
-                    response.addCookie(cookie);
-                }
-            } catch (Exception e) {
-                logger.error("Ошибка при обработке JWT: " + e.getMessage());
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                SecurityContextHolder.getContext().setAuthentication(authToken);
             }
-        } else {
-            logger.info("JWT токен не найден в запросе");
+        } catch (Exception ignored) {
+
         }
 
         filterChain.doFilter(request, response);
