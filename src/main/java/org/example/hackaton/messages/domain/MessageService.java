@@ -1,6 +1,5 @@
 package org.example.hackaton.messages.domain;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.hackaton.agent.db.AgentEntity;
@@ -31,7 +30,6 @@ public class MessageService {
     private final AgentService agentService;
     private final ChatService chatService;
 
-    @Transactional(readOnly = true)
     public String getAllByChatId(Long chatId) {
         List<MessageEntity> messages  = repository.findAllByChatId(chatId);
         StringBuilder builder = new StringBuilder();
@@ -41,12 +39,10 @@ public class MessageService {
         return builder.toString();
     }
 
-    @Transactional(readOnly = true)
-    public  List<MessageEntity> getAllByChatIdEntity(Long chatId) {
+    public List<MessageEntity> getAllByChatIdEntity(Long chatId) {
         return repository.findAllByChatId(chatId);
     }
 
-    @Transactional(readOnly = true)
     public String getAllByAgentId(Long agentId) {
         List<MessageEntity> messages  = repository.findAllByAgent_Id((agentId));
         StringBuilder builder = new StringBuilder();
@@ -68,7 +64,6 @@ public class MessageService {
         return repository.save(entity);
     }
 
-    @Transactional(readOnly = true)
     public String lastMessage(Long chatId) {
         Optional<MessageEntity> message = repository.findFirstByChatIdOrderByCreatedAtDesc(chatId);
         if(message.isPresent()) {
@@ -90,13 +85,12 @@ public class MessageService {
         Set<AgentEntity> agents = chat.getAgents();
 
         if (agents == null || agents.isEmpty()) {
-            throw new EntityNotFoundException("В чате " + chatId + " нет агентов");
+            return null;
         }
 
         List<AgentEntity> agentList = new ArrayList<>(agents);
 
-        int index = (int)(messageCount % agentList.size());
-        return agentList.get(index).getId();
+        return messageCount % 2 == 0 ? agentList.getFirst().getId() : agentList.getFirst().getId() + 1;
     }
 
 

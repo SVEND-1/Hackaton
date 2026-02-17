@@ -6,7 +6,7 @@ import org.example.hackaton.agent.api.dto.response.AgentProfileResponse;
 import org.example.hackaton.agent.db.AgentEntity;
 import org.example.hackaton.agent.domain.AgentService;
 import org.example.hackaton.messages.domain.MessageService;
-import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -19,7 +19,7 @@ public class AgentController {
 
     private final AgentService agentService;
     private final MessageService messageService;
-    private final ChatModel model;
+    private final OllamaChatModel model;
 
     @GetMapping("/{id}/{chatId}")
     public AgentProfileResponse getProfile( @PathVariable("id") Long id,

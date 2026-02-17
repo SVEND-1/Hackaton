@@ -42,9 +42,6 @@ public class ChatService {
         return chatRepository.findById(chatId)
                 .orElseThrow(() -> new EntityNotFoundException("Chat не найден"));
     }
-    
-    @Transactional(readOnly = true)
-    
 
     public List<ChatEntity> findAllByUserId(Long userId) {
         return chatRepository.findAllByUserId(userId);
