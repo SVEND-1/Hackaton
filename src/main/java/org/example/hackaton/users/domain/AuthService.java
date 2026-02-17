@@ -82,11 +82,11 @@ public class AuthService {
             kafkaProducer.sendMessageToKafka(notifyEvent);
 
             log.info("Пользователь вошел: {}, ID={}", loginRequest.email(), user.id());
-            return new LoginResponse(true, "Успешный вход. Ваш JWT: " + token, "/");
+            return new LoginResponse(true, "Успешный вход. Ваш JWT: ", token, "/");
 
         } catch (Exception e) {
             log.error("Ошибка входа для {}: {}", loginRequest.email(), e.getMessage());
-            return new LoginResponse(false, "Неверный email или пароль", null);
+            return new LoginResponse(false, "Неверный email или пароль", null, "/");
         }
     }
 
@@ -179,7 +179,7 @@ public class AuthService {
             pendingRegistrations.remove(request.registrationId());
 
             log.info("Пользователь создан id={}, email={}", savedUser.id(), savedUser.email());
-            return new LoginResponse(true, "Регистрация успешно завершена. Ваш JWT: " + token, "/");
+            return new LoginResponse(true, "Регистрация успешно завершена. Ваш JWT: ", token, "/");
 
         } catch (Exception e) {
             log.error("Ошибка при подтверждении: {}", e.getMessage());
@@ -303,6 +303,8 @@ public class AuthService {
                 return new SimpleResponse(false, "Не получилось сменить пароль");
             }
 
+            String token = jwtTokenProvider.createToken(userDTO.email(), userDTO.role().name());
+
             Set<SimpleGrantedAuthority> roles = Collections.singleton(user.role().toAuthority());
             Authentication authentication = new UsernamePasswordAuthenticationToken(user.email(), null, roles);
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -310,7 +312,7 @@ public class AuthService {
             passwordResets.remove(request.resetId());
 
             log.info("Пароль успешно изменен для пользователя: {}", data.email);
-            return new LoginResponse(true, "Пароль успешно изменен", "/");
+            return new LoginResponse(true, "Пароль успешно изменен", token, "/");
 
         } catch (Exception e) {
             log.error("Ошибка при сбросе пароля: {}", e.getMessage());
