@@ -5,6 +5,7 @@ export interface Agent {
     memories: string;
     plans: string;
     relationship: "симпатия" | "антипатия" | "нейтралитет";
+    avatar?: string;
 }
 
 export interface Message {
@@ -14,6 +15,19 @@ export interface Message {
     time: string;
     type: "agent" | "user";
     agentId?: string;
+    chatId?: string;
+}
+
+export interface Chat {
+    id: string;
+    name: string;
+    avatar: string;
+    agents: ChatAgent[];
+    neuralNetwork: "deepseek" | "gamma";
+    personality: string;
+    mood: string;
+    messages: Message[];
+    createdAt: Date;
 }
 
 export interface AgentModalProps {
@@ -36,6 +50,7 @@ export interface ChatMainContentProps {
     setInput: (value: string) => void;
     handleSend: () => void;
     openAgentCard: (agentId: string) => void;
+    currentChat?: Chat | null;
 }
 
 export interface MessageItemProps {
@@ -50,6 +65,21 @@ export interface MessagesListProps {
 
 export interface PersonalityListProps {
     changePersonality: (text: string) => void;
+}
+export interface ChatAgent {
+    name: string;
+    neuralNetwork: "deepseek" | "gamma";
+    personality: string;
+    mood: string;
+    avatar: string;
+    id?: string;
+}
+
+
+export interface CreateChatModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    onCreateChat: (chatData: { name: string; agents: ChatAgent[] }) => void;
 }
 
 export interface SendMessageResponse {
@@ -73,4 +103,14 @@ export interface GetMessagesResponse {
 export interface GetAgentsResponse {
     success: boolean;
     data: Agent[];
+}
+export interface ChatHeaderProps {
+    chatName?: string;
+}
+export interface AgentConfig {
+    name: string;
+    neuralNetwork: "deepseek" | "gamma";
+    personality: string;
+    mood: string;
+    avatar: string;
 }
