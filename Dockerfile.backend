@@ -1,17 +1,16 @@
-
-# Этап сборки
-FROM maven:3.8.4-openjdk-17-slim AS build
+# Используем Maven с Java 21
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 
 # Копирование файлов проекта
-COPY src /app/src
-COPY pom.xml /app/
+COPY pom.xml .
+COPY src ./src
 
 # Сборка приложения
 RUN mvn clean package -DskipTests
 
-# Этап запуска
-FROM openjdk:17-slim
+# Этап запуска с Java 21
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 # Копирование собранного jar файла
