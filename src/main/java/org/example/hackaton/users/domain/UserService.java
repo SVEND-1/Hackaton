@@ -28,6 +28,14 @@ public class UserService {
         return user;
     }
 
+    public UserDTO getCurrentUserDTO() {
+        String email =  SecurityContextHolder.getContext().getAuthentication().getName();
+        UserEntity user = userRepository.findByEmailEqualsIgnoreCase(email);
+        notFoundUser(user);
+        return userMapper.convertEntityToDto(user);
+    }
+
+
 
 
     public UserDTO findUserByEmail(String email) {
