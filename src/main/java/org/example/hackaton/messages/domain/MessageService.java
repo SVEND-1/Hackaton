@@ -1,5 +1,6 @@
 package org.example.hackaton.messages.domain;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.hackaton.agent.db.AgentEntity;
@@ -84,12 +85,13 @@ public class MessageService {
         Set<AgentEntity> agents = chat.getAgents();
 
         if (agents == null || agents.isEmpty()) {
-            return null;
+            throw new EntityNotFoundException("В чате " + chatId + " нет агентов");
         }
 
         List<AgentEntity> agentList = new ArrayList<>(agents);
 
-        return messageCount % 2 == 0 ? agentList.getFirst().getId() : agentList.getFirst().getId() + 1;
+        int index = (int)(messageCount % agentList.size());
+        return agentList.get(index).getId();
     }
 
 

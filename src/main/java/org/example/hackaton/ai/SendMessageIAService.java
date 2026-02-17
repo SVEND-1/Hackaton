@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.hackaton.agent.db.AgentEntity;
 import org.example.hackaton.agent.domain.AgentService;
+import org.example.hackaton.chats.db.ChatEntity;
+import org.example.hackaton.chats.domain.ChatService;
 import org.example.hackaton.messages.domain.MessageService;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ public class SendMessageIAService {
     private final MessageService messageService;
     private static final int MAX_DIALOG_TURNS = 10;
     private final AgentService agentService;
+    private final ChatService chatService;
 
 //    public String sendMessage(Long chatId) {//ОТПРАВКА СООбщение
 //        Prompt prompt = new Prompt(messageService.getAllByChatId(chatId));
@@ -37,6 +40,12 @@ public class SendMessageIAService {
 
     public List<String> startAgentDialog(Long chatId) {
         List<String> dialogHistory = new ArrayList<>();
+
+        ChatEntity chat = chatService.getChat(chatId);
+        if (chat.getAgents() == null || chat.getAgents().isEmpty()) {
+            throw new IllegalStateException("Невозможно начать диалог: в чате " + chatId + " нет агентов");
+        }
+
 
         model.call("Расскажи мне какой то факт и задай вопрос один на который я должен ответить");
 

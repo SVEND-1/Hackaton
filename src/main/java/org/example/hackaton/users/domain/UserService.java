@@ -29,6 +29,7 @@ public class UserService {
     }
 
 
+
     public UserDTO findUserByEmail(String email) {
         if (email == null) {
             log.debug("Пустой email,поиск пользователя не возможен");
