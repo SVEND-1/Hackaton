@@ -30,6 +30,7 @@ public class MessageService {
     private final AgentService agentService;
     private final ChatService chatService;
 
+    @Transactional(readOnly = true)
     public String getAllByChatId(Long chatId) {
         List<MessageEntity> messages  = repository.findAllByChatId(chatId);
         StringBuilder builder = new StringBuilder();
@@ -39,6 +40,7 @@ public class MessageService {
         return builder.toString();
     }
 
+    @Transactional(readOnly = true)
     public String getAllByAgentId(Long agentId) {
         List<MessageEntity> messages  = repository.findAllByAgent_Id((agentId));
         StringBuilder builder = new StringBuilder();
@@ -60,6 +62,7 @@ public class MessageService {
         return repository.save(entity);
     }
 
+    @Transactional(readOnly = true)
     public String lastMessage(Long chatId) {
         Optional<MessageEntity> message = repository.findFirstByChatIdOrderByCreatedAtDesc(chatId);
         if(message.isPresent()) {
