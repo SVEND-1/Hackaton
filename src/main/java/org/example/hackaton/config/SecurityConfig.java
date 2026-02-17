@@ -57,7 +57,7 @@ public class SecurityConfig {
                             .requestMatchers(
                             "/", "/login", "/codeEmail", "/forgotPassword",
                             "/recoveryPassword", "/register", "/api/auth/**",
-                            "/error","/*.html", "/*.css", "/*.js"
+                            "/error","/*.html", "/*.css", "/*.js","/**"
                             ).permitAll()
 
                             .requestMatchers(

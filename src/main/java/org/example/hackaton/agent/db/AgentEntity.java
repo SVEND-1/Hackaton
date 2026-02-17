@@ -1,12 +1,11 @@
 package org.example.hackaton.agent.db;
 
-import ch.qos.logback.classic.pattern.MessageConverter;
 import jakarta.persistence.*;
 import lombok.*;
-import org.example.hackaton.users.db.UserEntity;
-import org.springframework.ai.chat.messages.Message;
+import org.example.hackaton.chats.db.ChatEntity;
+import org.example.hackaton.messages.db.MessageEntity;
+import org.example.hackaton.messages.db.TypeMessage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -20,28 +19,27 @@ public class AgentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //TODO Доделать фотку
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "key_memories")
-    private String keyMemories;
-
-    @Column(name = "current_plans")
-    private String currentPlans;
-
-    @Column(name = "messages", columnDefinition = "TEXT")
-    @Convert(converter = MessagesJsonConverter.class)
-    private List<Message> messages = new ArrayList<>();
+    @Column(name = "photo")
+    private String photo;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "personality")
     private Personality personality;
 
-    @Column(name = "likin")
-    private Boolean isLiking;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "mood")
+    private Mood mood;
+
+    @Column(name = "current_goal")
+    private String currentGoal;
+
+    @OneToMany(mappedBy = "agent",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<MessageEntity> message;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private UserEntity user;
+    private ChatEntity chat;
 }

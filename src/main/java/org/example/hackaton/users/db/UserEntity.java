@@ -2,6 +2,9 @@ package org.example.hackaton.users.db;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.hackaton.chats.db.ChatEntity;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -28,4 +31,6 @@ public class UserEntity {
     @Column(name = "role")
     private Role role;
 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<ChatEntity> chats;
 }
