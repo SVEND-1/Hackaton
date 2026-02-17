@@ -1,11 +1,13 @@
-
 FROM node:18-alpine
 WORKDIR /app
 
+# Копируем package.json
 COPY package*.json ./
 
-RUN npm install
+# Устанавливаем зависимости ВКЛЮЧАЯ react-router-dom и axios
+RUN npm install && npm install react-router-dom axios --save
 
+# Копируем остальные файлы
 COPY . .
 
 EXPOSE 5173
