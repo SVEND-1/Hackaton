@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.hackaton.exception.FileUploadException;
 import org.example.hackaton.images.service.ImageService;
-import org.example.hackaton.minio.service.MinioFileService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
