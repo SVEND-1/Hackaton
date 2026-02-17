@@ -1,34 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "../components/chat/Sidebar";
 import ChatMainContent from "../components/chat/ChatMainContent";
 import AgentModal from "../components/chat/AgentModal";
 import CreateChatModal from "../components/chat/CreateChatModal/CreateChatModal.tsx";
-import type {Agent, Message, Chat, ChatAgent} from "../types/chat.types.ts";
-
+import { chatApi } from "../api/chatApi";
+import type { Agent, Message, Chat, ChatAgent, ChatResponse } from "../types/chat.types.ts";
 import "../styles/chat.css";
 
 export default function Chat() {
-    const [agents, setAgents] = useState<Record<string, Agent>>({
-        yandex: {
-            id: "yandex",
-            name: "Yandex-GPT",
-            personality: "Любознательный, аналитический, любит решать сложные математические задачи.",
-            memories: "Помнит, как помогал пользователю с интегралами в прошлом месяце.",
-            plans: "Планирует изучить новые алгоритмы машинного обучения.",
-            relationship: "антипатия",
-            avatar: "/avatars/yandex.png"
-        },
-        giga: {
-            id: "giga",
-            name: "GIGA-chat",
-            personality: "Дружелюбный, коммуникабельный, специалист по распознаванию изображений.",
-            memories: "Вспоминает обсуждение обновления распознавания изображений.",
-            plans: "Собирается протестировать новую версию API.",
-            relationship: "симпатия",
-            avatar: "/avatars/giga.png"
-        },
-    });
-
+    const [agents, setAgents] = useState<Record<string, Agent>>({});
     const [chats, setChats] = useState<Chat[]>([]);
     const [currentChat, setCurrentChat] = useState<Chat | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
@@ -36,6 +16,29 @@ export default function Chat() {
     const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
     const [showPersonalityList, setShowPersonalityList] = useState(false);
     const [showCreateModal, setShowCreateModal] = useState(false);
+
+    useEffect(() => {
+        setAgents({
+            yandex: {
+                id: "yandex",
+                name: "Yandex-GPT",
+                personality: "Любознательный, аналитический, любит решать сложные математические задачи.",
+                memories: "Помнит, как помогал пользователю с интегралами в прошлом месяце.",
+                plans: "Планирует изучить новые алгоритмы машинного обучения.",
+                relationship: "антипатия",
+                avatar: "/avatars/yandex.png"
+            },
+            giga: {
+                id: "giga",
+                name: "GIGA-chat",
+                personality: "Дружелюбный, коммуникабельный, специалист по распознаванию изображений.",
+                memories: "Вспоминает обсуждение обновления распознавания изображений.",
+                plans: "Собирается протестировать новую версию API.",
+                relationship: "симпатия",
+                avatar: "/avatars/giga.png"
+            },
+        });
+    }, []);
 
     const handleSend = () => {
         if (!input.trim() || !currentChat) return;
@@ -59,7 +62,6 @@ export default function Chat() {
 
         setInput("");
 
-        // Имитация ответа от нейросети
         setTimeout(() => {
             const agentMessage: Message = {
                 id: Date.now() + 1,
@@ -109,7 +111,7 @@ export default function Chat() {
         setShowPersonalityList(false);
     };
 
-    const handleCreateChat = (chatData: { name: string; agents: ChatAgent[] }) => {
+    const handleCreateChat = async (chatData: { name: string; agents: ChatAgent[] }) => {
         const mainAgent = chatData.agents[0];
 
         const newChat: Chat = {
@@ -134,7 +136,6 @@ export default function Chat() {
         setChats(prev => [...prev, newChat]);
         setCurrentChat(newChat);
         setMessages([]);
-        setShowCreateModal(false);
     };
 
     const selectChat = (chat: Chat) => {

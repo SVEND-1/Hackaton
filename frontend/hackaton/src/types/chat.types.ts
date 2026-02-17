@@ -1,3 +1,34 @@
+export interface AgentDTO {
+    name: string;
+    neuralNetwork: string;
+    personality: string;
+    mood: string;
+    avatar?: string;
+}
+
+export interface AgentChatResponse {
+    id: number;
+    name: string;
+    neuralNetwork: string;
+    personality: string;
+    mood: string;
+    avatar: string;
+    messages?: Message[];
+}
+
+export interface ChatResponse {
+    name: string;
+    agentChatResponse1: AgentChatResponse;
+    agentChatResponse2: AgentChatResponse;
+}
+
+export interface CreateChatRequest {
+    name: string;
+    agents: AgentDTO[];
+    agentPhoto1?: File;
+    agentPhoto2?: File;
+}
+
 export interface Agent {
     id: string;
     name: string;
