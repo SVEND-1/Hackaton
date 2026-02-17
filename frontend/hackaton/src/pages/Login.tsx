@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { login } from "../api/authApi";
-import "../styles/AuthForm.css";
 import { useNavigate } from "react-router-dom";
+import { login } from "../api/authApi";
+import AuthContainer from "../components/auth/AuthContainer.tsx";
+import AuthTitle from "../components/auth/AuthTitle.tsx";
+import AuthSubtitle from "../components/auth/AuthSubtitle.tsx";
+import LoginForm from "../components/auth/LoginForm.tsx";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -19,65 +22,21 @@ export default function Login() {
     };
 
     return (
-        <div className="auth-container">
+        <AuthContainer>
             <div className="auth-form-wrapper">
                 <div className="auth-form">
-                    <h2 className="auth-title">
-                        AI Park <br />
-                    </h2>
-                    <h3 className="auth-title3">login</h3>
-
-                    <form onSubmit={handleSubmit}>
-                        <div className="input-group">
-                            <label className="input-label">email</label>
-                            <input
-                                type="email"
-                                name="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="input-field"
-                                placeholder="your@email.com"
-                                required
-                            />
-                        </div>
-
-                        <div className="input-group">
-                            <label className="input-label">password</label>
-                            <input
-                                type="password"
-                                name="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className="input-field"
-                                placeholder="••••••••"
-                                required
-                            />
-                        </div>
-
-                        <div className="forgot-password">
-                            <button
-                                type="button"
-                                onClick={() => navigate("/forgot-password")}
-                                className="forgot-button"
-                            >
-                                забыли пароль?
-                            </button>
-                        </div>
-
-                        <button type="submit" className="submit-button">
-                            Войти
-                        </button>
-
-                        <p
-                            onClick={() => navigate("/register")}
-                            className="auth-link"
-                            style={{ cursor: "pointer" }}
-                        >
-                            Нет аккаунта? Зарегистрироваться
-                        </p>
-                    </form>
+                    <AuthTitle>AI chats</AuthTitle>
+                    <AuthSubtitle>login</AuthSubtitle>
+                    <LoginForm
+                        email={email}
+                        setEmail={setEmail}
+                        password={password}
+                        setPassword={setPassword}
+                        handleSubmit={handleSubmit}
+                        navigate={navigate}
+                    />
                 </div>
             </div>
-        </div>
+        </AuthContainer>
     );
 }

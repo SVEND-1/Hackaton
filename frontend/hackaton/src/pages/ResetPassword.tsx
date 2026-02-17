@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { resetPassword } from "../api/authApi";
+import AuthContainer from "../components/auth/AuthContainer";
+import AuthTitle from "../components/auth/AuthTitle";
+import AuthSubtitle from "../components/auth/AuthSubtitle";
+import ResetPasswordForm from "../components/auth/ResetPasswordForm";
 import "../styles/AuthForm.css";
 import "../styles/auth.css";
 
@@ -9,7 +13,6 @@ export default function ResetPassword() {
     const navigate = useNavigate();
 
     const resetId = searchParams.get("resetId");
-
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -33,60 +36,27 @@ export default function ResetPassword() {
             } else {
                 alert(response.data.message);
             }
-
         } catch (error) {
             alert("Ошибка при сбросе пароля");
         }
     };
 
     return (
-        <div className="auth-container">
+        <AuthContainer>
             <div className="auth-form-wrapper">
                 <div className="auth-form">
-                    <h2 className="auth-title">
-                        AI chats <br />
-                    </h2>
-                    <h3 className="auth-title3">reset password</h3>
-
-                    <form onSubmit={handleSubmit}>
-                        <div className="input-group">
-                            <label className="input-label">new password</label>
-                            <input
-                                type="password"
-                                value={newPassword}
-                                onChange={(e) => setNewPassword(e.target.value)}
-                                className="input-field"
-                                placeholder="••••••••"
-                                required
-                            />
-                        </div>
-
-                        <div className="input-group">
-                            <label className="input-label">confirm password</label>
-                            <input
-                                type="password"
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                className="input-field"
-                                placeholder="••••••••"
-                                required
-                            />
-                        </div>
-
-                        <button type="submit" className="submit-button">
-                            Сменить пароль
-                        </button>
-
-                        <p
-                            onClick={() => navigate("/")}
-                            className="auth-link"
-                            style={{ cursor: "pointer" }}
-                        >
-                            Вернуться к входу
-                        </p>
-                    </form>
+                    <AuthTitle>AI chats</AuthTitle>
+                    <AuthSubtitle>reset password</AuthSubtitle>
+                    <ResetPasswordForm
+                        newPassword={newPassword}
+                        setNewPassword={setNewPassword}
+                        confirmPassword={confirmPassword}
+                        setConfirmPassword={setConfirmPassword}
+                        handleSubmit={handleSubmit}
+                        navigate={navigate}
+                    />
                 </div>
             </div>
-        </div>
+        </AuthContainer>
     );
 }
