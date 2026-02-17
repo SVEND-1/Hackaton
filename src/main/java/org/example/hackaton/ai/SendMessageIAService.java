@@ -41,7 +41,7 @@ public class SendMessageIAService {
 //    }
 
 
-    public List<String> startAgentDialog(Long chatId) {
+    public List<String> startAgentDialog(Long chatId) {//TODO НОВАЯ ОПТИМИЗИРОВАННАЯ ВЕРСИЯ Подумать может как то ещё лучше можно
         List<String> dialogHistory = new ArrayList<>();
 
         ChatEntity chat = chatService.getChat(chatId);
@@ -105,13 +105,12 @@ public class SendMessageIAService {
 
             dialogHistory.add(answer);
 
-            long duration = System.currentTimeMillis() - startTime;
+            long duration = System.currentTimeMillis() - startTime;//В будущем добавить статистику
         }
 
         return dialogHistory;
     }
 
-    // Вспомогательные методы
     private String buildFullContext(List<MessageEntity> messages) {
         return messages.stream()
                 .map(m -> String.format("[%s] %s: %s",
