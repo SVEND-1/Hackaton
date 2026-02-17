@@ -86,7 +86,7 @@ services:
       - postgres-vector
       - kafka
       - minio
-      - ollama
+#      - ollama
     networks:
       - app-network
     restart: unless-stopped
