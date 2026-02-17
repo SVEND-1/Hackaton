@@ -8,6 +8,7 @@ import org.example.hackaton.messages.db.MessageEntity;
 import org.example.hackaton.messages.db.MessageRepository;
 import org.example.hackaton.messages.db.TypeMessage;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -19,6 +20,7 @@ public class MessageService {
     private final AgentService agentService;
     private final ChatService chatService;
 
+    @Transactional
     public MessageEntity save(TypeMessage type, String content, Long agentId,Long chatId) {
         MessageEntity entity = MessageEntity.builder()
                 .type(type)

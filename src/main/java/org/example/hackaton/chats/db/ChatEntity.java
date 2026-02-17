@@ -21,7 +21,10 @@ public class ChatEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;//todo название чата
+
+    @Column(name = "name")
+    private String name;
 
     @OneToMany(mappedBy = "chat",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<MessageEntity> messages;

@@ -2,29 +2,53 @@ package org.example.hackaton.agent.domain;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.example.hackaton.agent.api.dto.request.AgentCreateRequest;
+import org.example.hackaton.agent.api.dto.response.AgentChatResponse;
+import org.example.hackaton.agent.api.dto.response.AgentDTO;
 import org.example.hackaton.agent.db.*;
+import org.example.hackaton.messages.api.response.MessageDTO;
+import org.example.hackaton.messages.domain.mapper.MessageMapper;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AgentService {
     private final ChatClient chatClient;
     private final AgentRepository agentRepository;
+    private final MessageMapper messageMapper;
+    private final AgentMapper agentMapper;
 
     public AgentEntity getAgent(Long agentId) {
         return agentRepository.findById(agentId).orElseThrow(() -> new EntityNotFoundException("Agent не найден"));
     }
 
-    public AgentEntity save(String name,String photo,Personality personality,Mood mood) {
+    public AgentEntity save(AgentCreateRequest agentCreateRequest) {
+        String photo = agentCreateRequest.file().getName();//TODO поменять
+
         AgentEntity agent = AgentEntity.builder()
-                .name(name)
+                .name(agentCreateRequest.name())
                 .photo(photo)
-                .personality(personality)
-                .mood(mood)
+                .personality(agentCreateRequest.personality())
+                .mood(agentCreateRequest.mood())
                 .build();
 
         return agentRepository.save(agent);
+    }
+
+    public AgentChatResponse toAgentChatResponse(AgentEntity agent) {
+        if (agent == null) return null;
+
+        List<MessageDTO> messages = agent.getMessage().stream()
+                .map(messageMapper::convertEntityToDTO)
+                .collect(Collectors.toList());
+
+        AgentDTO agentDTO = agentMapper.convertEntityToDTO(agent);
+
+        return new AgentChatResponse(messages, agentDTO);
     }
 
 //    private List<String> eventLog = new ArrayList<>();

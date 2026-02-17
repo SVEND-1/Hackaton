@@ -5,9 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.example.hackaton.agent.api.dto.response.AgentDTO;
 import org.example.hackaton.agent.db.AgentEntity;
 import org.example.hackaton.agent.domain.AgentMapper;
+import org.example.hackaton.chats.api.dto.responese.ChatResponse;
 import org.example.hackaton.chats.db.ChatEntity;
 import org.example.hackaton.chats.db.ChatRepository;
-import org.example.hackaton.messages.db.MessageEntity;
+import org.example.hackaton.chats.domain.mapper.ChatMapper;
 import org.example.hackaton.users.db.Role;
 import org.example.hackaton.users.db.UserEntity;
 import org.example.hackaton.users.domain.UserService;
@@ -26,9 +27,20 @@ public class ChatService {
     private final ChatRepository chatRepository;
     private final UserService userService;
     private final AgentMapper agentMapper;
+    private final ChatMapper chatMapper;
 
+    @Transactional(readOnly = true)
+    public ChatResponse getChatDTO(Long chatId) {
+        ChatEntity chatEntity = chatRepository.findById(chatId)
+                .orElseThrow(() -> new EntityNotFoundException("Chat не найден"));
+
+        return chatMapper.convertEntityToDTO(chatEntity);
+    }
+
+    @Transactional(readOnly = true)
     public ChatEntity getChat(Long chatId) {
-        return chatRepository.findById(chatId).orElseThrow(() -> new EntityNotFoundException("Chat не найден"));
+        return chatRepository.findById(chatId)
+                .orElseThrow(() -> new EntityNotFoundException("Chat не найден"));
     }
 
     public List<ChatEntity> findAllByUserId(Long userId) {
@@ -36,12 +48,13 @@ public class ChatService {
     }
 
     @Transactional
-    public ChatEntity save(Set<AgentDTO> agents) {
+    public ChatEntity save(String name,Set<AgentDTO> agents) {
         Set<AgentEntity> agentEntities = agents.stream()
-                .map(agentMapper::converterDTOToEntity)
+                .map(agentMapper::convertDTOToEntity)
                 .collect(Collectors.toSet());
 
         ChatEntity chatEntity = ChatEntity.builder()
+                .name(name)
                 .createdAt(LocalDateTime.now())
                 .agents(agentEntities)
                 .user(UserEntity.builder()
@@ -59,11 +72,6 @@ public class ChatService {
         return chatRepository.save(chatEntity);
     }
 
-    public ChatEntity sendMessage(Long chatId, MessageEntity message) {
-        ChatEntity chatEntity = getChat(chatId);
-        chatEntity.addMessage(message);
-        return chatRepository.save(chatEntity);
-    }
 
     public void delete(Long chatId) {
         chatRepository.deleteById(chatId);
