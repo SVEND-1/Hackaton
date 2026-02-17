@@ -34,18 +34,18 @@ services:
       CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
     networks:
       - app-network
-
-  ollama:
-    image: ollama/ollama:latest
-    container_name: ollama
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama_data:/root/.ollama
-    networks:
-      - app-network
-    restart: unless-stopped
-    command: serve
+#
+#  ollama:
+#    image: ollama/ollama:latest
+#    container_name: ollama
+#    ports:
+#      - "11434:11434"
+#    volumes:
+#      - ollama_data:/root/.ollama
+#    networks:
+#      - app-network
+#    restart: unless-stopped
+#    command: serve
 
   minio:
     image: minio/minio:latest

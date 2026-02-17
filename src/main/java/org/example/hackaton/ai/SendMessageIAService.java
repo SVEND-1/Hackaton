@@ -9,7 +9,6 @@ import org.example.hackaton.chats.domain.ChatService;
 import org.example.hackaton.messages.db.MessageEntity;
 import org.example.hackaton.messages.domain.MessageService;
 import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,6 @@ public class SendMessageIAService {
     private final ChatModel model;
     private final MessageService messageService;
     private static final int MAX_DIALOG_TURNS = 10;
-    private final AgentService agentService;
     private final ChatService chatService;
 
 //    public String sendMessage(Long chatId) {//ОТПРАВКА СООбщение
