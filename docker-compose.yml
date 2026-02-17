@@ -8,19 +8,11 @@ services:
       POSTGRES_DB: virtual_world
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin123
-      POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-      - ./backups:/backups
     restart: unless-stopped
     networks:
       - app-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin -d virtual_world"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   kafka:
     image: confluentinc/cp-kafka:7.6.0
@@ -42,11 +34,6 @@ services:
       CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
     networks:
       - app-network
-    healthcheck:
-      test: ["CMD", "kafka-topics", "--bootstrap-server", "localhost:9092", "--list"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
 
   ollama:
     image: ollama/ollama:latest
@@ -59,11 +46,6 @@ services:
       - app-network
     restart: unless-stopped
     command: serve
-    healthcheck:
-      test: ["CMD", "ollama", "list"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
 
   minio:
     image: minio/minio:latest
@@ -75,19 +57,12 @@ services:
     environment:
       - MINIO_ROOT_USER=admin
       - MINIO_ROOT_PASSWORD=strongpassword123
-      - MINIO_DOMAIN=localhost
-      - MINIO_SERVER_URL=http://localhost:9000
     volumes:
       - ./minio/data:/data
       - ./minio/config:/root/.minio
     command: server /data --console-address ":9001"
     networks:
       - app-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
 
   backend:
     build:
@@ -107,14 +82,10 @@ services:
       - OLLAMA_URL=http://ollama:11434
       - OLLAMA_MODEL=gemma3:4b
     depends_on:
-      postgres-vector:
-        condition: service_healthy
-      kafka:
-        condition: service_healthy
-      minio:
-        condition: service_healthy
-      ollama:
-        condition: service_healthy
+      - postgres-vector
+      - kafka
+      - minio
+      - ollama
     networks:
       - app-network
     restart: unless-stopped
@@ -127,11 +98,10 @@ services:
     ports:
       - "5173:5173"
     environment:
-      - REACT_APP_API_URL=http://localhost:8080/api
-      - REACT_APP_MINIO_URL=http://localhost:9000
+      - REACT_APP_API_URL=http://6106779-ee569251.twc1.net/api
+      - REACT_APP_MINIO_URL=http://6106779-ee569251.twc1.net:9000
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
     networks:
       - app-network
     restart: unless-stopped
@@ -147,10 +117,8 @@ services:
       - ./nginx/ssl:/etc/nginx/ssl
       - ./nginx/html:/var/www/html
     depends_on:
-      backend:
-        condition: service_healthy
-      frontend:
-        condition: service_started
+      - backend
+      - frontend
     networks:
       - app-network
     restart: unless-stopped
@@ -165,8 +133,7 @@ services:
     networks:
       - app-network
     depends_on:
-      nginx:
-        condition: service_started
+      - nginx
     profiles:
       - certbot
 
