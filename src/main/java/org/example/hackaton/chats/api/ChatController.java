@@ -33,8 +33,7 @@ public class ChatController {
         try {
             chatService.save(name,agents,agentPhoto1,agentPhoto2);
             return ResponseEntity.ok(true);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.ok(false);
         }
     }

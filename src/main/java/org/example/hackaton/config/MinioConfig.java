@@ -2,7 +2,7 @@ package org.example.hackaton.config;
 
 import io.minio.MinioClient;
 import lombok.RequiredArgsConstructor;
-import org.example.hackaton.minio.properties.MinioProperties;
+import org.example.hackaton.minioFile.properties.MinioProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

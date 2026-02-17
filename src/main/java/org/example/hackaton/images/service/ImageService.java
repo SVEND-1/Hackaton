@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.hackaton.exception.FileUploadException;
 import org.example.hackaton.images.db.ImageEntity;
 import org.example.hackaton.images.db.ImageRepository;
-import org.example.hackaton.minio.properties.MinioProperties;
-import org.example.hackaton.minio.service.MinioFileService;
+import org.example.hackaton.minioFile.properties.MinioProperties;
+import org.example.hackaton.minioFile.service.MinioFileService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

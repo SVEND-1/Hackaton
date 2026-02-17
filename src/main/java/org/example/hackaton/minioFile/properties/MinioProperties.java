@@ -1,4 +1,4 @@
-package org.example.hackaton.minio.properties;
+package org.example.hackaton.minioFile.properties;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
