@@ -22,8 +22,8 @@ public class UserService {
     private final UserMapper userMapper;
 
     public UserEntity getCurrentUser() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        UserEntity user =  userRepository.findByEmailEqualsIgnoreCase(email);
+        UserDTO dto = (UserDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserEntity user = userRepository.findByEmailEqualsIgnoreCase(dto.email());
         notFoundUser(user);
         return user;
     }
@@ -41,15 +41,16 @@ public class UserService {
 
     public UserDTO save(UserCreateRequest request) {
         try {
-            log.info("Сохранения пользователя с email={}",request.email());
+            log.info("Сохранения пользователя с email={}", request.email());
             UserEntity savedUser = UserEntity.builder()
                     .email(request.email())
                     .name(request.name())
                     .password(request.password())
+                    .role(request.role())
                     .build();
             UserEntity saved = userRepository.save(savedUser);
             return userMapper.convertEntityToDto(saved);
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.info("Не удалось сохранить пользователя,ex={}", e.getMessage());
             throw new RuntimeException("Не удалось сохранить пользователя,ex=" + e.getMessage());
         }
@@ -71,10 +72,9 @@ public class UserService {
             UserEntity savedUser = userRepository.save(updatedUser);
             log.info("Пользователь обновлен с id={}", savedUser.getId());
             return userMapper.convertEntityToDto(savedUser);
-        }
-        catch (DataIntegrityViolationException e) {
-            log.error("Ошибка обновление пользователя id={}, ex={}",id ,e.getMessage());
-            throw new RuntimeException("Ошибка обновление пользователя",e);
+        } catch (DataIntegrityViolationException e) {
+            log.error("Ошибка обновление пользователя id={}, ex={}", id, e.getMessage());
+            throw new RuntimeException("Ошибка обновление пользователя", e);
         }
     }
 
@@ -89,8 +89,8 @@ public class UserService {
             UserEntity savedUser = userRepository.save(user);
             log.info("Пароль пользователя обновлен с id={}", savedUser.getId());
             return userMapper.convertEntityToDto(savedUser);
-        }catch (Exception e) {
-            log.error("Ошибка смена пароля пользователя id={}, ex={}", id ,e.getMessage());
+        } catch (Exception e) {
+            log.error("Ошибка смена пароля пользователя id={}, ex={}", id, e.getMessage());
             throw new RuntimeException(
                     "Не удалось изменить пароль, ex=" + e.getMessage()
             );
@@ -100,15 +100,15 @@ public class UserService {
     public void delete(Long id) {
         try {
             userRepository.deleteById(id);
-            log.info("Пользователб с id={} удален",id);
-        }catch (Exception e) {
-            log.error("Не удалось удалить пользователя с id={}, ex={}",id ,e.getMessage());
+            log.info("Пользователб с id={} удален", id);
+        } catch (Exception e) {
+            log.error("Не удалось удалить пользователя с id={}, ex={}", id, e.getMessage());
             throw new RuntimeException();
         }
     }
 
     private static void notFoundUser(UserEntity user) {
-        if(user == null) {
+        if (user == null) {
             log.error("Авторизованный пользователь не найдет");
             throw new IllegalArgumentException("Не найден пользователь");
         }

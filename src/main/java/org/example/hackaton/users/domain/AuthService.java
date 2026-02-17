@@ -1,6 +1,5 @@
 package org.example.hackaton.users.domain;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,12 +64,7 @@ public class AuthService {
 
             UserDTO user = userService.findUserByEmail(loginRequest.email());
 
-            Cookie cookie = new Cookie("jwtToken", jwtTokenProvider.createToken(user.email(), user.role().name()));
-            cookie.setHttpOnly(true);
-            cookie.setPath("/");
-            cookie.setMaxAge(24 * 60 * 60);
-            response.addCookie(cookie);
-            log.debug("Куки сохранены");
+            String token = jwtTokenProvider.createToken(user.email(), user.role().name());
 
             Set<SimpleGrantedAuthority> roles = Collections.singleton(user.role().toAuthority());
             Authentication authToken = new UsernamePasswordAuthenticationToken(
@@ -82,13 +76,13 @@ public class AuthService {
 
             NotifyEvent notifyEvent = new NotifyEvent(
                     user.email(),
-                    Map.of("userName",user.name()),
+                    Map.of("userName", user.name()),
                     NotifyType.LOGIN
             );
             kafkaProducer.sendMessageToKafka(notifyEvent);
 
             log.info("Пользователь вошел: {}, ID={}", loginRequest.email(), user.id());
-            return new LoginResponse(true, "Успешный вход", "/");
+            return new LoginResponse(true, "Успешный вход. Ваш JWT: " + token, "/");
 
         } catch (Exception e) {
             log.error("Ошибка входа для {}: {}", loginRequest.email(), e.getMessage());
@@ -99,12 +93,6 @@ public class AuthService {
     public SimpleResponse logout(HttpServletResponse response) {
         try {
             SecurityContextHolder.clearContext();
-
-            Cookie cookie = new Cookie("jwtToken", null);
-            cookie.setPath("/");
-            cookie.setHttpOnly(true);
-            cookie.setMaxAge(0);
-            response.addCookie(cookie);
 
             return new SimpleResponse(true, "Успешный выход");
 
@@ -128,7 +116,7 @@ public class AuthService {
             String verificationCode = emailSenderService.generateVerificationCode();
             String registrationId = UUID.randomUUID().toString();
 
-            log.debug("Code: {}",verificationCode);
+            log.debug("Code: {}", verificationCode);
 
             UserEntity tempUser = new UserEntity();
             tempUser.setEmail(email);
@@ -142,7 +130,7 @@ public class AuthService {
 
             NotifyEvent notifyEvent = new NotifyEvent(
                     email,
-                    Map.of("code",verificationCode),
+                    Map.of("code", verificationCode),
                     NotifyType.REGISTER
             );
             kafkaProducer.sendMessageToKafka(notifyEvent);
@@ -181,13 +169,7 @@ public class AuthService {
             user.setRole(Role.USER);
             UserDTO savedUser = userService.save(userMapper.convertDtoToCreateRequest(user));
 
-
             String token = jwtTokenProvider.createToken(savedUser.email(), savedUser.role().name());
-            Cookie cookie = new Cookie("jwtToken", token);
-            cookie.setHttpOnly(true);
-            cookie.setPath("/");
-            cookie.setMaxAge(24 * 60 * 60);
-            response.addCookie(cookie);
 
             Set<SimpleGrantedAuthority> roles = Collections.singleton(Role.USER.toAuthority());
             Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -197,7 +179,7 @@ public class AuthService {
             pendingRegistrations.remove(request.registrationId());
 
             log.info("Пользователь создан id={}, email={}", savedUser.id(), savedUser.email());
-            return new LoginResponse(true, "Регистрация успешно завершена", "/");
+            return new LoginResponse(true, "Регистрация успешно завершена. Ваш JWT: " + token, "/");
 
         } catch (Exception e) {
             log.error("Ошибка при подтверждении: {}", e.getMessage());
@@ -222,7 +204,7 @@ public class AuthService {
 
             NotifyEvent notifyEvent = new NotifyEvent(
                     data.user.getEmail(),
-                    Map.of("code",newCode),
+                    Map.of("code", newCode),
                     NotifyType.REPLAY_CODE
             );
             kafkaProducer.sendMessageToKafka(notifyEvent);
@@ -316,16 +298,10 @@ public class AuthService {
 
             UserDTO userDTO = userService.changePassword(user.id(), passwordEncoder.encode(request.newPassword()));
 
-            if(userDTO == null) {
+            if (userDTO == null) {
                 log.error("Не получилось сменить пароль");
-                return new SimpleResponse(false,"Не получилось сменить пароль");
+                return new SimpleResponse(false, "Не получилось сменить пароль");
             }
-
-            Cookie cookie = new Cookie("jwtToken", jwtTokenProvider.createToken(user.email(), user.role().name()));
-            cookie.setHttpOnly(true);
-            cookie.setPath("/");
-            cookie.setMaxAge(24 * 60 * 60);
-            response.addCookie(cookie);
 
             Set<SimpleGrantedAuthority> roles = Collections.singleton(user.role().toAuthority());
             Authentication authentication = new UsernamePasswordAuthenticationToken(user.email(), null, roles);
