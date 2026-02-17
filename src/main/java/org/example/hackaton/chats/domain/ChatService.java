@@ -9,7 +9,7 @@ import org.example.hackaton.chats.api.dto.responese.ChatResponse;
 import org.example.hackaton.chats.db.ChatEntity;
 import org.example.hackaton.chats.db.ChatRepository;
 import org.example.hackaton.chats.domain.mapper.ChatMapper;
-import org.example.hackaton.minio.service.ImageService;
+import org.example.hackaton.images.service.ImageService;
 import org.example.hackaton.users.db.Role;
 import org.example.hackaton.users.db.UserEntity;
 import org.example.hackaton.users.domain.UserService;
@@ -54,7 +54,7 @@ public class ChatService {
         Set<AgentEntity> agentEntities = agents.stream()
                 .map(el -> {
                     AgentEntity agent = agentMapper.convertDTOToEntity(el);
-                    agent.setPhoto(imageService.upload(el.photo()));
+                    agent.setPhoto(imageService.uploadImage(el.photo()));
                     return agent;
                 })
                 .collect(Collectors.toSet());
