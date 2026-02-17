@@ -1,4 +1,4 @@
-import type{ChatHeaderProps} from "../../types/chat.types.ts"
+import type {ChatHeaderProps} from "../../types/chat.types.ts"
 
 export default function ChatHeader({ chatName }: ChatHeaderProps) {
     return (

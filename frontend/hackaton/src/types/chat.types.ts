@@ -22,6 +22,7 @@ export interface Chat {
     id: string;
     name: string;
     avatar: string;
+    agents: ChatAgent[];
     neuralNetwork: "deepseek" | "gamma";
     personality: string;
     mood: string;
@@ -65,11 +66,20 @@ export interface MessagesListProps {
 export interface PersonalityListProps {
     changePersonality: (text: string) => void;
 }
+export interface ChatAgent {
+    name: string;
+    neuralNetwork: "deepseek" | "gamma";
+    personality: string;
+    mood: string;
+    avatar: string;
+    id?: string;
+}
+
 
 export interface CreateChatModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onCreateChat: (chatData: Omit<Chat, 'id' | 'messages' | 'createdAt'>) => void;
+    onCreateChat: (chatData: { name: string; agents: ChatAgent[] }) => void;
 }
 
 export interface SendMessageResponse {
@@ -94,6 +104,13 @@ export interface GetAgentsResponse {
     success: boolean;
     data: Agent[];
 }
-interface ChatHeaderProps {
+export interface ChatHeaderProps {
     chatName?: string;
+}
+export interface AgentConfig {
+    name: string;
+    neuralNetwork: "deepseek" | "gamma";
+    personality: string;
+    mood: string;
+    avatar: string;
 }

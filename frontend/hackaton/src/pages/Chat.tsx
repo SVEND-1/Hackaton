@@ -3,7 +3,7 @@ import Sidebar from "../components/chat/Sidebar";
 import ChatMainContent from "../components/chat/ChatMainContent";
 import AgentModal from "../components/chat/AgentModal";
 import CreateChatModal from "../components/chat/CreateChatModal";
-import type { Agent, Message, Chat } from "../types/chat.types.ts";
+import type {Agent, Message, Chat, ChatAgent} from "../types/chat.types.ts";
 
 import "../styles/chat.css";
 
@@ -109,10 +109,24 @@ export default function Chat() {
         setShowPersonalityList(false);
     };
 
-    const handleCreateChat = (chatData: Omit<Chat, 'id' | 'messages' | 'createdAt'>) => {
+    const handleCreateChat = (chatData: { name: string; agents: ChatAgent[] }) => {
+        const mainAgent = chatData.agents[0];
+
         const newChat: Chat = {
-            ...chatData,
             id: Date.now().toString(),
+            name: chatData.name,
+            avatar: mainAgent.avatar,
+            neuralNetwork: mainAgent.neuralNetwork,
+            personality: mainAgent.personality,
+            mood: mainAgent.mood,
+            agents: chatData.agents.map((agent, index) => ({
+                id: `agent-${Date.now()}-${index}`,
+                name: agent.name,
+                neuralNetwork: agent.neuralNetwork,
+                personality: agent.personality,
+                mood: agent.mood,
+                avatar: agent.avatar
+            })),
             messages: [],
             createdAt: new Date()
         };
