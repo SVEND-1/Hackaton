@@ -9,6 +9,7 @@ import org.example.hackaton.chats.api.dto.responese.ChatResponse;
 import org.example.hackaton.chats.db.ChatEntity;
 import org.example.hackaton.chats.db.ChatRepository;
 import org.example.hackaton.chats.domain.mapper.ChatMapper;
+import org.example.hackaton.minio.service.ImageService;
 import org.example.hackaton.users.db.Role;
 import org.example.hackaton.users.db.UserEntity;
 import org.example.hackaton.users.domain.UserService;
@@ -28,6 +29,7 @@ public class ChatService {
     private final UserService userService;
     private final AgentMapper agentMapper;
     private final ChatMapper chatMapper;
+    private final ImageService imageService;
 
     @Transactional(readOnly = true)
     public ChatResponse getChatDTO(Long chatId) {
@@ -50,7 +52,11 @@ public class ChatService {
     @Transactional
     public ChatEntity save(String name,Set<AgentDTO> agents) {
         Set<AgentEntity> agentEntities = agents.stream()
-                .map(agentMapper::convertDTOToEntity)
+                .map(el -> {
+                    AgentEntity agent = agentMapper.convertDTOToEntity(el);
+                    agent.setPhoto(imageService.upload(el.photo()));
+                    return agent;
+                })
                 .collect(Collectors.toSet());
 
         ChatEntity chatEntity = ChatEntity.builder()
