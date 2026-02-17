@@ -16,12 +16,12 @@ function App() {
                 <Route path="/" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/verify" element={<VerifyRegister />} />
-                <Route path="/verifyCode" element={<VerifyResetCode />} />
+                <Route path="/reset-verify" element={<VerifyResetCode />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/chat" element={<Chat />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/forgotPassword" element={<ForgotPassword />} />
-                <Route path="/resetPassword" element={<ResetPassword />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
             </Routes>
         </BrowserRouter>
     );
