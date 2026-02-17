@@ -1,29 +1,7 @@
-# Этап сборки
-FROM node:18-alpine AS build
-WORKDIR /app
-
-# Копирование package.json и package-lock.json
-COPY package*.json ./
-
-# Установка зависимостей
-RUN npm ci --only=production
-
-# Копирование исходного кода
-COPY . .
-
-# Сборка приложения
-RUN npm run build
-
-# Этап запуска для разработки (используйте для development)
 FROM node:18-alpine
 WORKDIR /app
-
-# Копирование зависимостей и исходников
-COPY --from=build /app/node_modules ./node_modules
+COPY package*.json ./
+RUN npm install
 COPY . .
-
-# Порт приложения
 EXPOSE 3000
-
-# Запуск в режиме разработки
 CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
