@@ -1,0 +1,24 @@
+
+# Этап сборки
+FROM maven:3.8.4-openjdk-17-slim AS build
+WORKDIR /app
+
+# Копирование файлов проекта
+COPY src /app/src
+COPY pom.xml /app/
+
+# Сборка приложения
+RUN mvn clean package -DskipTests
+
+# Этап запуска
+FROM openjdk:17-slim
+WORKDIR /app
+
+# Копирование собранного jar файла
+COPY --from=build /app/target/*.jar app.jar
+
+# Порт приложения
+EXPOSE 8080
+
+# Запуск приложения
+ENTRYPOINT ["java", "-jar", "app.jar"]
