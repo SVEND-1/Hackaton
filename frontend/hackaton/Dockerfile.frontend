@@ -1,18 +1,13 @@
-# frontend/hackaton/Dockerfile.frontend
+
 FROM node:18-alpine
 WORKDIR /app
 
-# Копируем package.json и package-lock.json
 COPY package*.json ./
 
-# Устанавливаем зависимости
 RUN npm install
 
-# Копируем остальные файлы
 COPY . .
 
-# Открываем порт 5173
 EXPOSE 5173
 
-# Запускаем Vite development server на всех интерфейсах
 CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
