@@ -5208,4 +5208,567 @@ org.hibernate.LazyInitializationException: failed to lazily initialize a collect
 2026-02-17T11:00:46.113+03:00  INFO 16616 --- [Hackaton] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
 2026-02-17T11:00:46.208+03:00  INFO 16616 --- [Hackaton] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-02-17T11:00:46.218+03:00  INFO 16616 --- [Hackaton] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2026-02-17T11:00:46.243+03:00  INFO 16616 --- [Hackaton] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-17T11:00:46.243+03:00  INFO 16616 --- [Hackaton] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.2026-02-17T14:49:54.732+03:00  INFO 13476 --- [Hackaton] [main] o.example.hackaton.HackatonApplication   : Starting HackatonApplication using Java 21.0.1 with PID 13476 (C:\java Ultimate\Hackaton\target\classes started by 7 in C:\java Ultimate\Hackaton)
+2026-02-17T14:49:54.736+03:00  INFO 13476 --- [Hackaton] [main] o.example.hackaton.HackatonApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-02-17T14:49:58.971+03:00  INFO 13476 --- [Hackaton] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-17T14:49:59.366+03:00  INFO 13476 --- [Hackaton] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 385 ms. Found 5 JPA repository interfaces.
+2026-02-17T14:50:04.188+03:00  INFO 13476 --- [Hackaton] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-17T14:50:04.216+03:00  INFO 13476 --- [Hackaton] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-17T14:50:04.216+03:00  INFO 13476 --- [Hackaton] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-02-17T14:50:04.327+03:00  INFO 13476 --- [Hackaton] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-17T14:50:04.328+03:00  INFO 13476 --- [Hackaton] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 9526 ms
+2026-02-17T14:50:04.426+03:00  INFO 13476 --- [Hackaton] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-17T14:50:04.876+03:00  INFO 13476 --- [Hackaton] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@25214797
+2026-02-17T14:50:04.879+03:00  INFO 13476 --- [Hackaton] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-17T14:50:05.070+03:00  INFO 13476 --- [Hackaton] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-17T14:50:05.317+03:00  INFO 13476 --- [Hackaton] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.41.Final
+2026-02-17T14:50:05.433+03:00  INFO 13476 --- [Hackaton] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-17T14:50:05.957+03:00  INFO 13476 --- [Hackaton] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-17T14:50:06.076+03:00  WARN 13476 --- [Hackaton] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-17T14:50:06.101+03:00  INFO 13476 --- [Hackaton] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.1
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-17T14:50:09.822+03:00  INFO 13476 --- [Hackaton] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-17T14:50:10.342+03:00  INFO 13476 --- [Hackaton] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-17T14:50:11.334+03:00  WARN 13476 --- [Hackaton] [main] o.s.aop.framework.CglibAopProxy          : Unable to proxy interface-implementing method [public final void org.springframework.web.filter.GenericFilterBean.init(jakarta.servlet.FilterConfig) throws jakarta.servlet.ServletException] because it is marked as final, consider using interface-based JDK proxies instead.
+2026-02-17T14:50:19.324+03:00  INFO 13476 --- [Hackaton] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-17T14:50:22.824+03:00  INFO 13476 --- [Hackaton] [main] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: vector_store. Is empty: false
+2026-02-17T14:50:22.830+03:00  INFO 13476 --- [Hackaton] [main] o.s.a.v.pgvector.PgVectorStore           : Initializing PGVectorStore schema for table: vector_store in schema: public
+2026-02-17T14:50:22.831+03:00  INFO 13476 --- [Hackaton] [main] o.s.a.v.pgvector.PgVectorStore           : vectorTableValidationsEnabled false
+2026-02-17T14:50:23.045+03:00  INFO 13476 --- [Hackaton] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-02-17T14:50:23.100+03:00  INFO 13476 --- [Hackaton] [main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.include.jmx.reporter = true
+	auto.offset.reset = latest
+	bootstrap.servers = [localhost:9092]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-notify-group-1
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	enable.metrics.push = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = notify-group
+	group.instance.id = null
+	group.protocol = classic
+	group.remote.assignor = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metadata.recovery.strategy = none
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.header.urlencode = false
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 45000
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.springframework.kafka.support.serializer.JsonDeserializer
+
+2026-02-17T14:50:23.162+03:00  INFO 13476 --- [Hackaton] [main] o.a.k.c.t.i.KafkaMetricsCollector        : initializing Kafka metrics collector
+2026-02-17T14:50:23.279+03:00  INFO 13476 --- [Hackaton] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.9.1
+2026-02-17T14:50:23.280+03:00  INFO 13476 --- [Hackaton] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: f745dfdcee2b9851
+2026-02-17T14:50:23.280+03:00  INFO 13476 --- [Hackaton] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1771329023275
+2026-02-17T14:50:23.288+03:00  INFO 13476 --- [Hackaton] [main] o.a.k.c.c.i.ClassicKafkaConsumer         : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Subscribed to topic(s): notifyUser
+2026-02-17T14:50:23.323+03:00  INFO 13476 --- [Hackaton] [main] o.example.hackaton.HackatonApplication   : Started HackatonApplication in 29.47 seconds (process running for 33.488)
+2026-02-17T14:50:24.860+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Cluster ID: MkU3OEVBNTcwNTJENDM2Qg
+2026-02-17T14:50:24.891+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Discovered group coordinator localhost:9092 (id: 2147483646 rack: null)
+2026-02-17T14:50:24.896+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] (Re-)joining group
+2026-02-17T14:50:25.026+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Request joining group due to: need to re-join with the given member-id: consumer-notify-group-1-af5ed83b-5ced-4d37-a36d-5165980ead1e
+2026-02-17T14:50:25.026+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] (Re-)joining group
+2026-02-17T14:50:28.529+03:00  INFO 13476 --- [Hackaton] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-17T14:50:28.529+03:00  INFO 13476 --- [Hackaton] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-17T14:50:28.532+03:00  INFO 13476 --- [Hackaton] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-02-17T14:50:28.546+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Successfully joined group with generation Generation{generationId=21, memberId='consumer-notify-group-1-af5ed83b-5ced-4d37-a36d-5165980ead1e', protocol='range'}
+2026-02-17T14:50:28.554+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Finished assignment for group at generation 21: {consumer-notify-group-1-af5ed83b-5ced-4d37-a36d-5165980ead1e=Assignment(partitions=[notifyUser-0])}
+2026-02-17T14:50:28.564+03:00  INFO 13476 --- [Hackaton] [http-nio-8080-exec-1] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:50:28.672+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Successfully synced group in generation Generation{generationId=21, memberId='consumer-notify-group-1-af5ed83b-5ced-4d37-a36d-5165980ead1e', protocol='range'}
+2026-02-17T14:50:28.674+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Notifying assignor about the new Assignment(partitions=[notifyUser-0])
+2026-02-17T14:50:28.691+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] k.c.c.i.ConsumerRebalanceListenerInvoker : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Adding newly assigned partitions: notifyUser-0
+2026-02-17T14:50:28.698+03:00  INFO 13476 --- [Hackaton] [http-nio-8080-exec-2] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:50:28.706+03:00  INFO 13476 --- [Hackaton] [http-nio-8080-exec-3] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:50:28.706+03:00  INFO 13476 --- [Hackaton] [http-nio-8080-exec-4] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:50:28.708+03:00  INFO 13476 --- [Hackaton] [http-nio-8080-exec-5] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:50:28.708+03:00  INFO 13476 --- [Hackaton] [http-nio-8080-exec-6] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:50:28.771+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerUtils        : Setting offset for partition notifyUser-0 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[localhost:9092 (id: 1 rack: null)], epoch=0}}
+2026-02-17T14:50:28.892+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notify-group: partitions assigned: [notifyUser-0]
+2026-02-17T14:50:29.040+03:00  INFO 13476 --- [Hackaton] [http-nio-8080-exec-7] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:50:29.046+03:00  INFO 13476 --- [Hackaton] [http-nio-8080-exec-8] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:50:29.121+03:00  INFO 13476 --- [Hackaton] [http-nio-8080-exec-9] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:50:29.800+03:00  INFO 13476 --- [Hackaton] [http-nio-8080-exec-9] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 656 ms
+2026-02-17T14:50:42.109+03:00  INFO 13476 --- [Hackaton] [http-nio-8080-exec-10] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:50:42.173+03:00  WARN 13476 --- [Hackaton] [http-nio-8080-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type 'multipart/form-data;boundary=----WebKitFormBoundaryhpARMgy57NX13FWJ;charset=UTF-8' is not supported]
+2026-02-17T14:53:31.991+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] k.c.c.i.ConsumerRebalanceListenerInvoker : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Revoke previously assigned partitions notifyUser-0
+2026-02-17T14:53:31.999+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notify-group: partitions revoked: [notifyUser-0]
+2026-02-17T14:53:32.000+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Member consumer-notify-group-1-af5ed83b-5ced-4d37-a36d-5165980ead1e sending LeaveGroup request to coordinator localhost:9092 (id: 2147483646 rack: null) due to the consumer unsubscribed from all topics
+2026-02-17T14:53:32.002+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-02-17T14:53:32.002+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Request joining group due to: consumer pro-actively leaving the group
+2026-02-17T14:53:32.002+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.i.ClassicKafkaConsumer         : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Unsubscribed all topics or patterns and assigned partitions
+2026-02-17T14:53:32.013+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-02-17T14:53:32.014+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Request joining group due to: consumer pro-actively leaving the group
+2026-02-17T14:53:32.307+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-02-17T14:53:32.308+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-02-17T14:53:32.308+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+2026-02-17T14:53:32.309+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-02-17T14:53:32.332+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notify-group-1 unregistered
+2026-02-17T14:53:32.334+03:00  INFO 13476 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notify-group: Consumer stopped
+2026-02-17T14:53:32.343+03:00  INFO 13476 --- [Hackaton] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-17T14:53:32.359+03:00  INFO 13476 --- [Hackaton] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-17T14:53:32.488+03:00  INFO 13476 --- [Hackaton] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-17T14:53:32.502+03:00  INFO 13476 --- [Hackaton] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-17T14:53:32.508+03:00  INFO 13476 --- [Hackaton] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-17T14:53:55.167+03:00  INFO 3440 --- [Hackaton] [main] o.example.hackaton.HackatonApplication   : Starting HackatonApplication using Java 21.0.1 with PID 3440 (C:\java Ultimate\Hackaton\target\classes started by 7 in C:\java Ultimate\Hackaton)
+2026-02-17T14:53:55.175+03:00  INFO 3440 --- [Hackaton] [main] o.example.hackaton.HackatonApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-02-17T14:53:58.084+03:00  INFO 3440 --- [Hackaton] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-17T14:53:58.466+03:00  INFO 3440 --- [Hackaton] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 362 ms. Found 5 JPA repository interfaces.
+2026-02-17T14:53:59.576+03:00  INFO 3440 --- [Hackaton] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-17T14:53:59.598+03:00  INFO 3440 --- [Hackaton] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-17T14:53:59.599+03:00  INFO 3440 --- [Hackaton] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-02-17T14:53:59.738+03:00  INFO 3440 --- [Hackaton] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-17T14:53:59.740+03:00  INFO 3440 --- [Hackaton] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4441 ms
+2026-02-17T14:53:59.867+03:00  INFO 3440 --- [Hackaton] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-17T14:54:00.264+03:00  INFO 3440 --- [Hackaton] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@539316bb
+2026-02-17T14:54:00.267+03:00  INFO 3440 --- [Hackaton] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-17T14:54:00.418+03:00  INFO 3440 --- [Hackaton] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-17T14:54:00.550+03:00  INFO 3440 --- [Hackaton] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.41.Final
+2026-02-17T14:54:00.652+03:00  INFO 3440 --- [Hackaton] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-17T14:54:01.057+03:00  INFO 3440 --- [Hackaton] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-17T14:54:01.197+03:00  WARN 3440 --- [Hackaton] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-17T14:54:01.227+03:00  INFO 3440 --- [Hackaton] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.1
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-17T14:54:02.949+03:00  INFO 3440 --- [Hackaton] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-17T14:54:03.196+03:00  INFO 3440 --- [Hackaton] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-17T14:54:03.626+03:00  WARN 3440 --- [Hackaton] [main] o.s.aop.framework.CglibAopProxy          : Unable to proxy interface-implementing method [public final void org.springframework.web.filter.GenericFilterBean.init(jakarta.servlet.FilterConfig) throws jakarta.servlet.ServletException] because it is marked as final, consider using interface-based JDK proxies instead.
+2026-02-17T14:54:05.401+03:00  INFO 3440 --- [Hackaton] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-17T14:54:08.699+03:00  INFO 3440 --- [Hackaton] [main] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: vector_store. Is empty: false
+2026-02-17T14:54:08.817+03:00  INFO 3440 --- [Hackaton] [main] o.s.a.v.pgvector.PgVectorStore           : Initializing PGVectorStore schema for table: vector_store in schema: public
+2026-02-17T14:54:08.817+03:00  INFO 3440 --- [Hackaton] [main] o.s.a.v.pgvector.PgVectorStore           : vectorTableValidationsEnabled false
+2026-02-17T14:54:09.490+03:00  INFO 3440 --- [Hackaton] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-02-17T14:54:09.625+03:00  INFO 3440 --- [Hackaton] [main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.include.jmx.reporter = true
+	auto.offset.reset = latest
+	bootstrap.servers = [localhost:9092]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-notify-group-1
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	enable.metrics.push = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = notify-group
+	group.instance.id = null
+	group.protocol = classic
+	group.remote.assignor = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metadata.recovery.strategy = none
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.header.urlencode = false
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 45000
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.springframework.kafka.support.serializer.JsonDeserializer
+
+2026-02-17T14:54:09.750+03:00  INFO 3440 --- [Hackaton] [main] o.a.k.c.t.i.KafkaMetricsCollector        : initializing Kafka metrics collector
+2026-02-17T14:54:09.971+03:00  INFO 3440 --- [Hackaton] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.9.1
+2026-02-17T14:54:09.972+03:00  INFO 3440 --- [Hackaton] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: f745dfdcee2b9851
+2026-02-17T14:54:09.972+03:00  INFO 3440 --- [Hackaton] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1771329249968
+2026-02-17T14:54:09.978+03:00  INFO 3440 --- [Hackaton] [main] o.a.k.c.c.i.ClassicKafkaConsumer         : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Subscribed to topic(s): notifyUser
+2026-02-17T14:54:10.037+03:00  INFO 3440 --- [Hackaton] [main] o.example.hackaton.HackatonApplication   : Started HackatonApplication in 15.94 seconds (process running for 18.02)
+2026-02-17T14:54:11.435+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Cluster ID: MkU3OEVBNTcwNTJENDM2Qg
+2026-02-17T14:54:11.659+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Discovered group coordinator localhost:9092 (id: 2147483646 rack: null)
+2026-02-17T14:54:11.664+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] (Re-)joining group
+2026-02-17T14:54:11.762+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Request joining group due to: need to re-join with the given member-id: consumer-notify-group-1-8b65311f-6720-4e35-9a59-0f81b9d90347
+2026-02-17T14:54:11.765+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] (Re-)joining group
+2026-02-17T14:54:13.121+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-17T14:54:13.122+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-17T14:54:13.128+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2026-02-17T14:54:13.211+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-1] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:13.385+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-2] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:13.394+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-5] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:13.399+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-6] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:13.413+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-5] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:13.417+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-4] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:13.810+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-7] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:13.817+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-9] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:13.945+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-8] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:15.161+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-8] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 1163 ms
+2026-02-17T14:54:15.333+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Successfully joined group with generation Generation{generationId=23, memberId='consumer-notify-group-1-8b65311f-6720-4e35-9a59-0f81b9d90347', protocol='range'}
+2026-02-17T14:54:15.451+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Finished assignment for group at generation 23: {consumer-notify-group-1-8b65311f-6720-4e35-9a59-0f81b9d90347=Assignment(partitions=[notifyUser-0])}
+2026-02-17T14:54:15.627+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Successfully synced group in generation Generation{generationId=23, memberId='consumer-notify-group-1-8b65311f-6720-4e35-9a59-0f81b9d90347', protocol='range'}
+2026-02-17T14:54:15.630+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Notifying assignor about the new Assignment(partitions=[notifyUser-0])
+2026-02-17T14:54:15.647+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] k.c.c.i.ConsumerRebalanceListenerInvoker : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Adding newly assigned partitions: notifyUser-0
+2026-02-17T14:54:15.827+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerUtils        : Setting offset for partition notifyUser-0 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[localhost:9092 (id: 1 rack: null)], epoch=0}}
+2026-02-17T14:54:15.844+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notify-group: partitions assigned: [notifyUser-0]
+2026-02-17T14:54:44.811+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-10] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:45.147+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-1] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:45.149+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-6] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:45.149+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-2] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:45.150+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-3] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:45.149+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-4] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:45.342+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-5] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:45.413+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-9] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:45.429+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-7] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:54:45.521+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-8] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:55:04.358+03:00  INFO 3440 --- [Hackaton] [http-nio-8080-exec-10] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:55:04.395+03:00  WARN 3440 --- [Hackaton] [http-nio-8080-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type 'multipart/form-data;boundary=----WebKitFormBoundaryryeEXCAKEri8SYsm;charset=UTF-8' is not supported]
+2026-02-17T14:55:43.029+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] k.c.c.i.ConsumerRebalanceListenerInvoker : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Revoke previously assigned partitions notifyUser-0
+2026-02-17T14:55:43.031+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notify-group: partitions revoked: [notifyUser-0]
+2026-02-17T14:55:43.033+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Member consumer-notify-group-1-8b65311f-6720-4e35-9a59-0f81b9d90347 sending LeaveGroup request to coordinator localhost:9092 (id: 2147483646 rack: null) due to the consumer unsubscribed from all topics
+2026-02-17T14:55:43.035+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-02-17T14:55:43.037+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Request joining group due to: consumer pro-actively leaving the group
+2026-02-17T14:55:43.037+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.i.ClassicKafkaConsumer         : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Unsubscribed all topics or patterns and assigned partitions
+2026-02-17T14:55:43.045+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-02-17T14:55:43.046+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Request joining group due to: consumer pro-actively leaving the group
+2026-02-17T14:55:43.295+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-02-17T14:55:43.296+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-02-17T14:55:43.296+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+2026-02-17T14:55:43.297+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-02-17T14:55:43.311+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notify-group-1 unregistered
+2026-02-17T14:55:43.312+03:00  INFO 3440 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notify-group: Consumer stopped
+2026-02-17T14:55:43.320+03:00  INFO 3440 --- [Hackaton] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-17T14:55:43.333+03:00  INFO 3440 --- [Hackaton] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-17T14:55:43.408+03:00  INFO 3440 --- [Hackaton] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-17T14:55:43.418+03:00  INFO 3440 --- [Hackaton] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-17T14:55:43.427+03:00  INFO 3440 --- [Hackaton] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-17T14:55:58.454+03:00  INFO 21072 --- [Hackaton] [main] o.example.hackaton.HackatonApplication   : Starting HackatonApplication using Java 21.0.1 with PID 21072 (C:\java Ultimate\Hackaton\target\classes started by 7 in C:\java Ultimate\Hackaton)
+2026-02-17T14:55:58.457+03:00  INFO 21072 --- [Hackaton] [main] o.example.hackaton.HackatonApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-02-17T14:55:59.763+03:00  INFO 21072 --- [Hackaton] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-17T14:55:59.996+03:00  INFO 21072 --- [Hackaton] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 224 ms. Found 5 JPA repository interfaces.
+2026-02-17T14:56:01.288+03:00  INFO 21072 --- [Hackaton] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-17T14:56:01.318+03:00  INFO 21072 --- [Hackaton] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-17T14:56:01.319+03:00  INFO 21072 --- [Hackaton] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-02-17T14:56:01.466+03:00  INFO 21072 --- [Hackaton] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-17T14:56:01.467+03:00  INFO 21072 --- [Hackaton] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2945 ms
+2026-02-17T14:56:01.581+03:00  INFO 21072 --- [Hackaton] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-17T14:56:01.827+03:00  INFO 21072 --- [Hackaton] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3bd08435
+2026-02-17T14:56:01.830+03:00  INFO 21072 --- [Hackaton] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-17T14:56:02.008+03:00  INFO 21072 --- [Hackaton] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-17T14:56:02.129+03:00  INFO 21072 --- [Hackaton] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.41.Final
+2026-02-17T14:56:02.198+03:00  INFO 21072 --- [Hackaton] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-17T14:56:02.491+03:00  INFO 21072 --- [Hackaton] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-17T14:56:02.572+03:00  WARN 21072 --- [Hackaton] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-17T14:56:02.587+03:00  INFO 21072 --- [Hackaton] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.1
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-17T14:56:04.239+03:00  INFO 21072 --- [Hackaton] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-17T14:56:04.393+03:00  INFO 21072 --- [Hackaton] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-17T14:56:04.843+03:00  WARN 21072 --- [Hackaton] [main] o.s.aop.framework.CglibAopProxy          : Unable to proxy interface-implementing method [public final void org.springframework.web.filter.GenericFilterBean.init(jakarta.servlet.FilterConfig) throws jakarta.servlet.ServletException] because it is marked as final, consider using interface-based JDK proxies instead.
+2026-02-17T14:56:05.992+03:00  INFO 21072 --- [Hackaton] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-02-17T14:56:07.366+03:00  INFO 21072 --- [Hackaton] [main] o.s.a.v.pgvector.PgVectorStore           : Using the vector table name: vector_store. Is empty: false
+2026-02-17T14:56:07.370+03:00  INFO 21072 --- [Hackaton] [main] o.s.a.v.pgvector.PgVectorStore           : Initializing PGVectorStore schema for table: vector_store in schema: public
+2026-02-17T14:56:07.370+03:00  INFO 21072 --- [Hackaton] [main] o.s.a.v.pgvector.PgVectorStore           : vectorTableValidationsEnabled false
+2026-02-17T14:56:07.578+03:00  INFO 21072 --- [Hackaton] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-02-17T14:56:07.648+03:00  INFO 21072 --- [Hackaton] [main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.include.jmx.reporter = true
+	auto.offset.reset = latest
+	bootstrap.servers = [localhost:9092]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-notify-group-1
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	enable.metrics.push = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = notify-group
+	group.instance.id = null
+	group.protocol = classic
+	group.remote.assignor = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metadata.recovery.strategy = none
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.header.urlencode = false
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 45000
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.springframework.kafka.support.serializer.JsonDeserializer
+
+2026-02-17T14:56:07.703+03:00  INFO 21072 --- [Hackaton] [main] o.a.k.c.t.i.KafkaMetricsCollector        : initializing Kafka metrics collector
+2026-02-17T14:56:07.736+03:00  INFO 21072 --- [Hackaton] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-17T14:56:07.736+03:00  INFO 21072 --- [Hackaton] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-17T14:56:07.738+03:00  INFO 21072 --- [Hackaton] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-02-17T14:56:07.762+03:00  INFO 21072 --- [Hackaton] [http-nio-8080-exec-1] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:56:07.827+03:00  INFO 21072 --- [Hackaton] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.9.1
+2026-02-17T14:56:07.828+03:00  INFO 21072 --- [Hackaton] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: f745dfdcee2b9851
+2026-02-17T14:56:07.829+03:00  INFO 21072 --- [Hackaton] [main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1771329367824
+2026-02-17T14:56:07.837+03:00  INFO 21072 --- [Hackaton] [main] o.a.k.c.c.i.ClassicKafkaConsumer         : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Subscribed to topic(s): notifyUser
+2026-02-17T14:56:07.855+03:00  INFO 21072 --- [Hackaton] [http-nio-8080-exec-2] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:56:07.864+03:00  INFO 21072 --- [Hackaton] [http-nio-8080-exec-4] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:56:07.865+03:00  INFO 21072 --- [Hackaton] [http-nio-8080-exec-5] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:56:07.866+03:00  INFO 21072 --- [Hackaton] [http-nio-8080-exec-6] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:56:07.868+03:00  INFO 21072 --- [Hackaton] [http-nio-8080-exec-3] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:56:07.907+03:00  INFO 21072 --- [Hackaton] [main] o.example.hackaton.HackatonApplication   : Started HackatonApplication in 11.37 seconds (process running for 13.329)
+2026-02-17T14:56:08.027+03:00  INFO 21072 --- [Hackaton] [http-nio-8080-exec-7] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:56:08.030+03:00  INFO 21072 --- [Hackaton] [http-nio-8080-exec-8] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:56:08.140+03:00  INFO 21072 --- [Hackaton] [http-nio-8080-exec-9] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:56:08.914+03:00  INFO 21072 --- [Hackaton] [http-nio-8080-exec-9] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 737 ms
+2026-02-17T14:56:08.988+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Cluster ID: MkU3OEVBNTcwNTJENDM2Qg
+2026-02-17T14:56:08.998+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Discovered group coordinator localhost:9092 (id: 2147483646 rack: null)
+2026-02-17T14:56:09.005+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] (Re-)joining group
+2026-02-17T14:56:09.077+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Request joining group due to: need to re-join with the given member-id: consumer-notify-group-1-8e396c67-0f64-475e-9c1b-5a89517c60dc
+2026-02-17T14:56:09.078+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] (Re-)joining group
+2026-02-17T14:56:12.417+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Successfully joined group with generation Generation{generationId=25, memberId='consumer-notify-group-1-8e396c67-0f64-475e-9c1b-5a89517c60dc', protocol='range'}
+2026-02-17T14:56:12.423+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Finished assignment for group at generation 25: {consumer-notify-group-1-8e396c67-0f64-475e-9c1b-5a89517c60dc=Assignment(partitions=[notifyUser-0])}
+2026-02-17T14:56:12.463+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Successfully synced group in generation Generation{generationId=25, memberId='consumer-notify-group-1-8e396c67-0f64-475e-9c1b-5a89517c60dc', protocol='range'}
+2026-02-17T14:56:12.464+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Notifying assignor about the new Assignment(partitions=[notifyUser-0])
+2026-02-17T14:56:12.467+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] k.c.c.i.ConsumerRebalanceListenerInvoker : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Adding newly assigned partitions: notifyUser-0
+2026-02-17T14:56:12.490+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerUtils        : Setting offset for partition notifyUser-0 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[localhost:9092 (id: 1 rack: null)], epoch=0}}
+2026-02-17T14:56:12.492+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notify-group: partitions assigned: [notifyUser-0]
+2026-02-17T14:56:22.004+03:00  INFO 21072 --- [Hackaton] [http-nio-8080-exec-10] org.example.hackaton.config.JwtFilter    : JWT токен не найден в запросе
+2026-02-17T14:56:31.767+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] k.c.c.i.ConsumerRebalanceListenerInvoker : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Revoke previously assigned partitions notifyUser-0
+2026-02-17T14:56:31.772+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notify-group: partitions revoked: [notifyUser-0]
+2026-02-17T14:56:31.775+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Member consumer-notify-group-1-8e396c67-0f64-475e-9c1b-5a89517c60dc sending LeaveGroup request to coordinator localhost:9092 (id: 2147483646 rack: null) due to the consumer unsubscribed from all topics
+2026-02-17T14:56:31.777+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-02-17T14:56:31.777+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Request joining group due to: consumer pro-actively leaving the group
+2026-02-17T14:56:31.777+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.i.ClassicKafkaConsumer         : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Unsubscribed all topics or patterns and assigned partitions
+2026-02-17T14:56:31.782+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Resetting generation and member id due to: consumer pro-actively leaving the group
+2026-02-17T14:56:31.782+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-notify-group-1, groupId=notify-group] Request joining group due to: consumer pro-actively leaving the group
+2026-02-17T14:56:32.079+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-02-17T14:56:32.079+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-02-17T14:56:32.079+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+2026-02-17T14:56:32.080+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-02-17T14:56:32.093+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-notify-group-1 unregistered
+2026-02-17T14:56:32.094+03:00  INFO 21072 --- [Hackaton] [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : notify-group: Consumer stopped
+2026-02-17T14:56:32.098+03:00  INFO 21072 --- [Hackaton] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-17T14:56:32.107+03:00  INFO 21072 --- [Hackaton] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-17T14:56:32.171+03:00  INFO 21072 --- [Hackaton] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-17T14:56:32.175+03:00  INFO 21072 --- [Hackaton] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-17T14:56:32.186+03:00  INFO 21072 --- [Hackaton] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
