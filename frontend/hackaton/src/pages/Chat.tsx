@@ -2,7 +2,8 @@ import { useState } from "react";
 import Sidebar from "../components/chat/Sidebar";
 import ChatMainContent from "../components/chat/ChatMainContent";
 import AgentModal from "../components/chat/AgentModal";
-import type {Agent, Message} from "../types/chat.types.ts";
+import CreateChatModal from "../components/chat/CreateChatModal";
+import type { Agent, Message, Chat } from "../types/chat.types.ts";
 
 import "../styles/chat.css";
 
@@ -11,51 +12,33 @@ export default function Chat() {
         yandex: {
             id: "yandex",
             name: "Yandex-GPT",
-            personality:
-                "Любознательный, аналитический, любит решать сложные математические задачи.",
-            memories:
-                "Помнит, как помогал пользователю с интегралами в прошлом месяце.",
-            plans:
-                "Планирует изучить новые алгоритмы машинного обучения.",
+            personality: "Любознательный, аналитический, любит решать сложные математические задачи.",
+            memories: "Помнит, как помогал пользователю с интегралами в прошлом месяце.",
+            plans: "Планирует изучить новые алгоритмы машинного обучения.",
             relationship: "антипатия",
+            avatar: "/avatars/yandex.png"
         },
         giga: {
             id: "giga",
             name: "GIGA-chat",
-            personality:
-                "Дружелюбный, коммуникабельный, специалист по распознаванию изображений.",
-            memories:
-                "Вспоминает обсуждение обновления распознавания изображений.",
-            plans:
-                "Собирается протестировать новую версию API.",
+            personality: "Дружелюбный, коммуникабельный, специалист по распознаванию изображений.",
+            memories: "Вспоминает обсуждение обновления распознавания изображений.",
+            plans: "Собирается протестировать новую версию API.",
             relationship: "симпатия",
+            avatar: "/avatars/giga.png"
         },
     });
 
-    const [messages, setMessages] = useState<Message[]>([
-        {
-            id: 1,
-            author: "Yandex-GPT",
-            text: "Привет всем! Как дела?",
-            time: "14:30",
-            type: "agent",
-            agentId: "yandex",
-        },
-        {
-            id: 2,
-            author: "Вы",
-            text: "Все отлично 🙂",
-            time: "14:31",
-            type: "user",
-        },
-    ]);
-
+    const [chats, setChats] = useState<Chat[]>([]);
+    const [currentChat, setCurrentChat] = useState<Chat | null>(null);
+    const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState("");
     const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
     const [showPersonalityList, setShowPersonalityList] = useState(false);
+    const [showCreateModal, setShowCreateModal] = useState(false);
 
     const handleSend = () => {
-        if (!input.trim()) return;
+        if (!input.trim() || !currentChat) return;
 
         const newMessage: Message = {
             id: Date.now(),
@@ -63,10 +46,38 @@ export default function Chat() {
             text: input,
             time: new Date().toLocaleTimeString().slice(0, 5),
             type: "user",
+            chatId: currentChat.id
         };
 
         setMessages((prev) => [...prev, newMessage]);
+
+        setChats(prev => prev.map(chat =>
+            chat.id === currentChat.id
+                ? { ...chat, messages: [...chat.messages, newMessage] }
+                : chat
+        ));
+
         setInput("");
+
+        // Имитация ответа от нейросети
+        setTimeout(() => {
+            const agentMessage: Message = {
+                id: Date.now() + 1,
+                author: currentChat.name,
+                text: `Привет! Я ${currentChat.name}. ${currentChat.mood}`,
+                time: new Date().toLocaleTimeString().slice(0, 5),
+                type: "agent",
+                agentId: currentChat.id,
+                chatId: currentChat.id
+            };
+
+            setMessages(prev => [...prev, agentMessage]);
+            setChats(prev => prev.map(chat =>
+                chat.id === currentChat.id
+                    ? { ...chat, messages: [...chat.messages, agentMessage] }
+                    : chat
+            ));
+        }, 1000);
     };
 
     const openAgentCard = (agentId: string) => {
@@ -98,15 +109,40 @@ export default function Chat() {
         setShowPersonalityList(false);
     };
 
+    const handleCreateChat = (chatData: Omit<Chat, 'id' | 'messages' | 'createdAt'>) => {
+        const newChat: Chat = {
+            ...chatData,
+            id: Date.now().toString(),
+            messages: [],
+            createdAt: new Date()
+        };
+
+        setChats(prev => [...prev, newChat]);
+        setCurrentChat(newChat);
+        setMessages([]);
+        setShowCreateModal(false);
+    };
+
+    const selectChat = (chat: Chat) => {
+        setCurrentChat(chat);
+        setMessages(chat.messages);
+    };
+
     return (
         <div className="app">
-            <Sidebar />
+            <Sidebar
+                chats={chats}
+                currentChat={currentChat}
+                onSelectChat={selectChat}
+                onCreateNewChat={() => setShowCreateModal(true)}
+            />
             <ChatMainContent
                 messages={messages}
                 input={input}
                 setInput={setInput}
                 handleSend={handleSend}
                 openAgentCard={openAgentCard}
+                currentChat={currentChat}
             />
             {selectedAgent && (
                 <AgentModal
@@ -117,6 +153,11 @@ export default function Chat() {
                     closeModal={closeModal}
                 />
             )}
+            <CreateChatModal
+                isOpen={showCreateModal}
+                onClose={() => setShowCreateModal(false)}
+                onCreateChat={handleCreateChat}
+            />
         </div>
     );
 }
