@@ -1,23 +1,19 @@
-# Используем Maven с Java 21
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Копирование файлов проекта
 COPY pom.xml .
+RUN mvn dependency:go-offline -B
+
 COPY src ./src
 
-# Сборка приложения
-RUN mvn clean package -DskipTests
+# Указываем конкретный main класс при сборке
+RUN mvn clean package -DskipTests -Dstart-class=org.example.hackaton.HackatonApplication
 
-# Этап запуска с Java 21
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-# Копирование собранного jar файла
 COPY --from=build /app/target/*.jar app.jar
 
-# Порт приложения
 EXPOSE 8080
 
-# Запуск приложения
 ENTRYPOINT ["java", "-jar", "app.jar"]
