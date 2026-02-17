@@ -1,6 +1,7 @@
 package org.example.hackaton.ai;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.hackaton.messages.domain.MessageService;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SendMessageIAService {
@@ -30,7 +32,6 @@ public class SendMessageIAService {
 //    }
 
 
-    @Transactional
     public List<String> startAgentDialog(Long chatId) {
         List<String> dialogHistory = new ArrayList<>();
 
@@ -52,7 +53,9 @@ public class SendMessageIAService {
 
             String answer = model.call(agentPrompt);
 
+            log.info(answer + "Получен ответ");
             messageService.save(answer, speakingAgentId, chatId);
+            log.info("Ответ перешел в commit на бд ,но ещшё не закаммитился ");
             dialogHistory.add(answer);
         }
 
