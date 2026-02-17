@@ -97,12 +97,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-vector:5432/virtual_world
-      - DB_PORT=5432
-      - DB_NAME=virtual_world
-      - DB_USERNAME=admin
-      - DB_PASSWORD=admin123
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin123
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - MINIO_ENDPOINT=http://minio:9000
       - MINIO_ACCESS_KEY=admin
