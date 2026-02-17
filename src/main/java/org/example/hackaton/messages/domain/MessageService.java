@@ -42,6 +42,11 @@ public class MessageService {
     }
 
     @Transactional(readOnly = true)
+    public  List<MessageEntity> getAllByChatIdEntity(Long chatId) {
+        return repository.findAllByChatId(chatId);
+    }
+
+    @Transactional(readOnly = true)
     public String getAllByAgentId(Long agentId) {
         List<MessageEntity> messages  = repository.findAllByAgent_Id((agentId));
         StringBuilder builder = new StringBuilder();

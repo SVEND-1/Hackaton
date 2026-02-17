@@ -6,13 +6,16 @@ import org.example.hackaton.agent.db.AgentEntity;
 import org.example.hackaton.agent.domain.AgentService;
 import org.example.hackaton.chats.db.ChatEntity;
 import org.example.hackaton.chats.domain.ChatService;
+import org.example.hackaton.messages.db.MessageEntity;
 import org.example.hackaton.messages.domain.MessageService;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -42,46 +45,85 @@ public class SendMessageIAService {
         List<String> dialogHistory = new ArrayList<>();
 
         ChatEntity chat = chatService.getChat(chatId);
-        if (chat.getAgents() == null || chat.getAgents().isEmpty()) {
-            throw new IllegalStateException("Невозможно начать диалог: в чате " + chatId + " нет агентов");
+        List<AgentEntity> agents = new ArrayList<>(chat.getAgents());
+
+        if (agents.isEmpty()) {
+            throw new IllegalStateException("Нет агентов в чате " + chatId);
         }
 
+        List<MessageEntity> allMessages = messageService.getAllByChatIdEntity(chatId);
+        Map<Long, List<MessageEntity>> messagesByAgent = allMessages.stream()
+                .collect(Collectors.groupingBy(m -> m.getAgent().getId()));
 
-        model.call("Расскажи мне какой то факт и задай вопрос один на который я должен ответить");
+        Map<Long, String> agentContextCache = new HashMap<>();
+
+        CompletableFuture<String> initialFuture = CompletableFuture.supplyAsync(() ->
+                model.call("Расскажи мне какой-то факт и задай один вопрос")
+        );
+
+        try {
+            String initialResponse = initialFuture.get(10, TimeUnit.SECONDS);
+            log.info("Начальный ответ: {}", initialResponse);
+        } catch (Exception e) {
+            log.warn("Не удалось получить начальный ответ", e);
+        }
 
         for (int turn = 0; turn < MAX_DIALOG_TURNS; turn++) {
-            Long speakingAgentId = messageService.getQueueAI(chatId);
+            long startTime = System.currentTimeMillis();
 
-            String fullContext = messageService.getAllByChatId(chatId);
-            String agentContext = messageService.getAllByAgentId(speakingAgentId);
-            String lastMessage = messageService.lastMessage(chatId);
+            int agentIndex = (int)((messageService.getCountMessagesChat(chatId) + turn) % agents.size());
+            Long speakingAgentId = agents.get(agentIndex).getId();
 
-            String agentPrompt = promtToMoodAndPersonality(speakingAgentId, fullContext, agentContext, lastMessage);
 
-            String answer = model.call(agentPrompt);
+            String lastMessage = allMessages.isEmpty() ?
+                    "Привет, начни диалог" :
+                    allMessages.getLast().getContent();
 
-            log.info("{}Получен ответ", answer);
-            messageService.save(answer, speakingAgentId, chatId);
-            log.info("Ответ перешел в commit на бд ,но ещшё не закаммитился ");
+            String agentContext = agentContextCache.computeIfAbsent(speakingAgentId,
+                    id -> buildAgentContext(messagesByAgent.getOrDefault(id, Collections.emptyList()))
+            );
+
+            AgentEntity currentAgent = agents.get(agentIndex);
+            String prompt = String.format(
+                    "История диалога:\n%s\n\n" +
+                            "Твои сообщения:\n%s\n\n" +
+                            "Последнее сообщение: %s\n\n" +
+                            "Ты - %s. Твой характер: %s, настроение: %s\n" +
+                            "Ответь как этот персонаж:",
+                    buildFullContext(allMessages),
+                    agentContext,
+                    lastMessage,
+                    currentAgent.getName(),
+                    currentAgent.getPersonality(),
+                    currentAgent.getMood()
+            );
+
+            String answer = model.call(prompt);
+
+            MessageEntity savedMessage = messageService.save(answer, speakingAgentId, chatId);
+            allMessages.add(savedMessage);
+
             dialogHistory.add(answer);
+
+            long duration = System.currentTimeMillis() - startTime;
         }
 
         return dialogHistory;
     }
 
-    private String promtToMoodAndPersonality(Long agentId,
-                                             String fullContext,
-                                             String  agentContext,
-                                             String  lastMessage) {
+    // Вспомогательные методы
+    private String buildFullContext(List<MessageEntity> messages) {
+        return messages.stream()
+                .map(m -> String.format("[%s] %s: %s",
+                        m.getCreatedAt(),
+                        m.getAgent().getName(),
+                        m.getContent()))
+                .collect(Collectors.joining("\n"));
+    }
 
-        AgentEntity agent = agentService.getAgent(agentId);
-        String agentPrompt = String.format(
-                "Вот история вашего диалога:\n%s\n\n" +
-                        "Вот твои сообщения из всего диалога: %s" +
-                        "Тебе сказали:\n%s\n\n " +
-                        "Продолжи диалог зная что у тебя харакетер %s,а настроение %s",
-                fullContext, agentContext,lastMessage,agent.getPersonality().name(),agent.getMood().name()
-        );
-        return agentPrompt;
+    private String buildAgentContext(List<MessageEntity> agentMessages) {
+        return agentMessages.stream()
+                .map(MessageEntity::getContent)
+                .collect(Collectors.joining("\n"));
     }
 }
