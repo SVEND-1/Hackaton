@@ -15,8 +15,12 @@ import org.example.hackaton.users.db.UserEntity;
 import org.example.hackaton.users.domain.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -50,19 +54,18 @@ public class ChatService {
     }
 
     @Transactional
-    public ChatEntity save(String name,Set<AgentDTO> agents) {
-        Set<AgentEntity> agentEntities = agents.stream()
-                .map(el -> {
-                    AgentEntity agent = agentMapper.convertDTOToEntity(el);
-                    agent.setPhoto(imageService.upload(el.photo()));
-                    return agent;
-                })
-                .collect(Collectors.toSet());
+    public ChatEntity save(String name,Set<AgentDTO> agents,MultipartFile agentPhoto1,MultipartFile agentPhoto2) {
+        List<AgentEntity> agentEntities = agents.stream()
+                .map(agentMapper::convertDTOToEntity)
+                .toList();
+
+        agentEntities.get(0).setPhoto(imageService.upload(agentPhoto1));
+        agentEntities.get(1).setPhoto(imageService.upload(agentPhoto2));
 
         ChatEntity chatEntity = ChatEntity.builder()
                 .name(name)
                 .createdAt(LocalDateTime.now())
-                .agents(agentEntities)
+                .agents(new HashSet<>(agentEntities))
                 .user(UserEntity.builder()
                         .id(1L)
                         .email("user@example.com")
