@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Logs
+logs
+
+# Minio
+minio
+
+# Tests
+src/main/java/org/example/hackaton/test

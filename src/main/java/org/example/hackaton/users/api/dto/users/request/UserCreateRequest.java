@@ -1,7 +1,10 @@
 package org.example.hackaton.users.api.dto.users.request;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import org.example.hackaton.users.db.Role;
 
 public record UserCreateRequest(
         @NotNull
@@ -10,6 +13,9 @@ public record UserCreateRequest(
         @Email
         String email,
         @NotNull
-        String password
+        String password,
+        @NotNull
+        @Enumerated(EnumType.STRING)
+        Role role
 ) {
 }

@@ -57,7 +57,7 @@ public class SecurityConfig {
                             .requestMatchers(
                             "/", "/login", "/codeEmail", "/forgotPassword",
                             "/recoveryPassword", "/register", "/api/auth/**",
-                            "/error","/*.html", "/*.css", "/*.js"
+                            "/error","/*.html", "/*.css", "/*.js","/**"
                             ).permitAll()
 
                             .requestMatchers(
@@ -65,12 +65,12 @@ public class SecurityConfig {
                                     "/swagger-ui.html", "/v3/api-docs/**", "/swagger-resources/**",
                                     "/webjars/**"
                             )
-                            .hasRole("ADMIN")
+                            .permitAll()
 
                             .requestMatchers(
                                     "/test","/chooseTest","/createTest","/result","/dashboard",
                                     "/api/user-test/**","/api/user-answer","/api/users/**","/api/tests/**",
-                                    "/api/questions"
+                                    "/api/questions","/tests/jwt"
                             ).authenticated()
 
                             .anyRequest().permitAll()
