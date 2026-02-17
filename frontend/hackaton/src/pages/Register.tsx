@@ -1,29 +1,44 @@
-import { useState } from "react";
+import  {type FormEvent} from "react";
 import { useNavigate } from "react-router-dom";
 import { sendRegisterCode } from "../api/authApi";
-import AuthContainer from "../components/auth/AuthContainer.tsx";
-import AuthTitle from "../components/auth/AuthTitle.tsx";
-import AuthSubtitle from "../components/auth/AuthSubtitle.tsx";
-import RegisterForm from "../components/auth/RegisterForm.tsx";
+import type { RegisterFormProps } from "../types/auth.types";
+import AuthContainer from "../components/auth/AuthContainer";
+import AuthTitle from "../components/auth/AuthTitle";
+import AuthSubtitle from "../components/auth/AuthSubtitle";
+import RegisterForm from "../components/auth/RegisterForm";
+import * as React from "react";
 
 export default function Register() {
-    const [form, setForm] = useState({
+    const navigate = useNavigate();
+
+    const [form, setForm] = React.useState({
         email: "",
         password: "",
         name: "",
     });
 
-    const navigate = useNavigate();
-
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+
         try {
             const response = await sendRegisterCode(form);
-            const registrationId = response.data.registrationId;
-            navigate(`/verify?registrationId=${registrationId}`);
+            if (response.data.success) {
+                const registrationId = response.data.registrationId;
+                navigate(`/verify?registrationId=${registrationId}`);
+            } else {
+                alert(response.data.message || "Ошибка регистрации");
+            }
         } catch (err) {
-            alert("Ошибка регистрации");
+            console.error(err);
+            alert("Ошибка регистрации, попробуйте снова");
         }
+    };
+
+    const registerFormProps: RegisterFormProps = {
+        form,
+        setForm,
+        handleSubmit,
+        navigate,
     };
 
     return (
@@ -31,13 +46,8 @@ export default function Register() {
             <div className="auth-form-wrapper">
                 <div className="auth-form">
                     <AuthTitle>AI chats</AuthTitle>
-                    <AuthSubtitle>register</AuthSubtitle>
-                    <RegisterForm
-                        form={form}
-                        setForm={setForm}
-                        handleSubmit={handleSubmit}
-                        navigate={navigate}
-                    />
+                    <AuthSubtitle>Register</AuthSubtitle>
+                    <RegisterForm {...registerFormProps} />
                 </div>
             </div>
         </AuthContainer>

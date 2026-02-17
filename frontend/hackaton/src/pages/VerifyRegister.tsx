@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { verifyRegister } from "../api/authApi";
-import { useSearchParams, useNavigate } from "react-router-dom";
 import "../styles/AuthForm.css";
 
 export default function VerifyRegister() {
@@ -13,8 +13,12 @@ export default function VerifyRegister() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await verifyRegister({ registrationId, code });
-            navigate("/dashboard");
+            const response = await verifyRegister({ registrationId, code });
+            if (response.data.success) {
+                navigate("/dashboard");
+            } else {
+                alert(response.data.message);
+            }
         } catch {
             alert("Неверный код");
         }
@@ -24,14 +28,11 @@ export default function VerifyRegister() {
         <div className="auth-container">
             <div className="auth-form-wrapper">
                 <div className="auth-form">
-                    <h2 className="auth-title">
-                        AI chats <br />
-                    </h2>
-                    <h3 className="auth-title3">verification</h3>
-
+                    <h2 className="auth-title">AI chats</h2>
+                    <h3 className="auth-title3">Verification</h3>
                     <form onSubmit={handleSubmit}>
                         <div className="input-group">
-                            <label className="input-label">verification code</label>
+                            <label className="input-label">Verification code</label>
                             <input
                                 type="text"
                                 value={code}
@@ -41,11 +42,9 @@ export default function VerifyRegister() {
                                 required
                             />
                         </div>
-
                         <button type="submit" className="submit-button">
                             Подтвердить код
                         </button>
-
                         <p
                             onClick={() => navigate("/")}
                             className="auth-link"
