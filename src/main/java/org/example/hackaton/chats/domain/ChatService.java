@@ -57,12 +57,7 @@ public class ChatService {
                 .name(name)
                 .createdAt(LocalDateTime.now())
                 .agents(agentEntities)
-                .user(UserEntity.builder()
-                        .id(1L)
-                        .email("user@example.com")
-                        .role(Role.USER)
-                        .password("password")
-                        .build())
+                .user(userService.getCurrentUser())
                 .build();
 
         for (AgentEntity agent : agentEntities) {

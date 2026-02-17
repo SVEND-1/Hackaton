@@ -2,6 +2,8 @@ package org.example.hackaton.ai;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.hackaton.agent.db.AgentEntity;
+import org.example.hackaton.agent.domain.AgentService;
 import org.example.hackaton.messages.domain.MessageService;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ public class SendMessageIAService {
     private final OllamaChatModel model;
     private final MessageService messageService;
     private static final int MAX_DIALOG_TURNS = 10;
+    private final AgentService agentService;
 
 //    public String sendMessage(Long chatId) {//ОТПРАВКА СООбщение
 //        Prompt prompt = new Prompt(messageService.getAllByChatId(chatId));
@@ -44,21 +47,32 @@ public class SendMessageIAService {
             String agentContext = messageService.getAllByAgentId(speakingAgentId);
             String lastMessage = messageService.lastMessage(chatId);
 
-            String agentPrompt = String.format(
-                    "Вот история вашего диалога:\n%s\n\n" +
-                            "Вот твои сообщения из всего диалога: %s" +
-                            "Тебе сказали:\n%s\n\n продолжи диалог",
-                    fullContext, agentContext,lastMessage
-            );
+            String agentPrompt = promtToMoodAndPersonality(speakingAgentId, fullContext, agentContext, lastMessage);
 
             String answer = model.call(agentPrompt);
 
-            log.info(answer + "Получен ответ");
+            log.info("{}Получен ответ", answer);
             messageService.save(answer, speakingAgentId, chatId);
             log.info("Ответ перешел в commit на бд ,но ещшё не закаммитился ");
             dialogHistory.add(answer);
         }
 
         return dialogHistory;
+    }
+
+    private String promtToMoodAndPersonality(Long agentId,
+                                             String fullContext,
+                                             String  agentContext,
+                                             String  lastMessage) {
+
+        AgentEntity agent = agentService.getAgent(agentId);
+        String agentPrompt = String.format(
+                "Вот история вашего диалога:\n%s\n\n" +
+                        "Вот твои сообщения из всего диалога: %s" +
+                        "Тебе сказали:\n%s\n\n " +
+                        "Продолжи диалог зная что у тебя харакетер %s,а настроение %s",
+                fullContext, agentContext,lastMessage,agent.getPersonality().name(),agent.getMood().name()
+        );
+        return agentPrompt;
     }
 }
