@@ -2,7 +2,7 @@ import { useState } from "react";
 import Sidebar from "../components/chat/Sidebar";
 import ChatMainContent from "../components/chat/ChatMainContent";
 import AgentModal from "../components/chat/AgentModal";
-import CreateChatModal from "../components/chat/CreateChatModal";
+import CreateChatModal from "../components/chat/CreateChatModal/CreateChatModal.tsx";
 import type {Agent, Message, Chat, ChatAgent} from "../types/chat.types.ts";
 
 import "../styles/chat.css";
