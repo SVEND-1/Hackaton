@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public record AgentDTO(
         String name,
-        MultipartFile photo,
+        String photo,
         TypeMessage type,
         Personality personality,
         Mood mood
