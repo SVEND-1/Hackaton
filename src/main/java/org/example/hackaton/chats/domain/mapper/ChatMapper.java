@@ -24,7 +24,7 @@ public class ChatMapper {
         this.agentChatResponseMapper = agentChatResponseMapper;
     }
 
-    public ChatResponse convertEntityToDTO(ChatEntity chatEntity) {
+    public ChatResponse convertEntityToDTOResponse(ChatEntity chatEntity) {
         if (chatEntity == null) return null;
 
         Set<AgentEntity> agents = chatEntity.getAgents();
