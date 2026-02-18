@@ -7,8 +7,6 @@ import java.util.Set;
 
 public record CreateChatRequest(
         String name,
-        Set<AgentDTO> agents,
-        MultipartFile agentPhoto1,
-        MultipartFile agentPhoto2
+        Set<AgentDTO> agents
 ) {
 }

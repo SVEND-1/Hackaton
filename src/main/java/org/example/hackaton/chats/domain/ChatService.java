@@ -2,9 +2,11 @@ package org.example.hackaton.chats.domain;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.hackaton.agent.api.dto.response.AgentDTO;
 import org.example.hackaton.agent.db.AgentEntity;
 import org.example.hackaton.agent.domain.AgentMapper;
+import org.example.hackaton.chats.api.dto.responese.ChatCreateResponse;
 import org.example.hackaton.chats.api.dto.responese.ChatResponse;
 import org.example.hackaton.chats.db.ChatEntity;
 import org.example.hackaton.chats.db.ChatRepository;
@@ -20,6 +22,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ChatService {
@@ -34,7 +37,7 @@ public class ChatService {
         ChatEntity chatEntity = chatRepository.findById(chatId)
                 .orElseThrow(() -> new EntityNotFoundException("Chat не найден"));
 
-        return chatMapper.convertEntityToDTO(chatEntity);
+        return chatMapper.convertEntityToDTOResponse(chatEntity);
     }
 
     @Transactional(readOnly = true)
@@ -43,37 +46,57 @@ public class ChatService {
                 .orElseThrow(() -> new EntityNotFoundException("Chat не найден"));
     }
 
-    public List<ChatEntity> findAllByUserId(Long userId) {
-        return chatRepository.findAllByUserId(userId);
+    @Transactional(readOnly = true)
+    public List<ChatResponse> findAllByUserId() {
+        List<ChatEntity> chat = chatRepository.findAllByUserId(userService.getCurrentUser().getId());
+        return chat.stream()
+                .map(chatMapper::convertEntityToDTOResponse)
+                .collect(Collectors.toList());
     }
 
     @Transactional
-    public ChatEntity save(String name,Set<AgentDTO> agents) {
-        Set<AgentEntity> agentEntities = agents.stream()
-                .map(agentMapper::convertDTOToEntity)
-                .collect(Collectors.toSet());
+    public ChatCreateResponse save(String name,Set<AgentDTO> agents) {
+        try {
+            Set<AgentEntity> agentEntities = agents.stream()
+                    .map(agentMapper::convertDTOToEntity)
+                    .collect(Collectors.toSet());
 
-        ChatEntity chatEntity = ChatEntity.builder()
-                .name(name)
-                .createdAt(LocalDateTime.now())
-                .agents(agentEntities)
-                .user(UserEntity.builder()
-                        .id(1L)
-                        .email("user@example.com")
-                        .role(Role.USER)
-                        .password("password")
-                        .build())
-                .build();
+            ChatEntity chatEntity = ChatEntity.builder()
+                    .name(name)
+                    .createdAt(LocalDateTime.now())
+                    .agents(agentEntities)
+                    .user(UserEntity.builder()//TODO ПОМЕНЯТЬ НА ТЕКУЩЕГО ПОЛЬЗОВАТЕЛЯ
+                            .id(1L)
+                            .email("user@example.com")
+                            .role(Role.USER)
+                            .password("password")
+                            .build())
+                    .build();
 
-        for (AgentEntity agent : agentEntities) {
-            agent.setChat(chatEntity);
+            for (AgentEntity agent : agentEntities) {
+                agent.setChat(chatEntity);
+            }
+
+            ChatEntity saved = chatRepository.save(chatEntity);
+            return new ChatCreateResponse(
+                    saved.getId(),
+                    saved.getName(),
+                    saved.getCreatedAt()
+            );
+        }catch (Exception e){
+            log.error("Не удалось сохранить chat,ex={}", e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
-
-        return chatRepository.save(chatEntity);
     }
 
 
+    @Transactional
     public void delete(Long chatId) {
-        chatRepository.deleteById(chatId);
+        try {
+            chatRepository.deleteById(chatId);
+        }catch (Exception e){
+            log.error("Не удалось удалить чат ,ex={}", e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }
