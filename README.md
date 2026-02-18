@@ -1,5 +1,3 @@
-###Hackaton
-
 ## Участники проекта
 
 - **Напалков Никита** - Backend, Team Lead [https://github.com/SVEND-1]
