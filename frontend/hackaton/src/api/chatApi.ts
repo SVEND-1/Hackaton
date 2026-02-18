@@ -1,4 +1,4 @@
-import type { AgentDTO, ChatResponse, CreateChatRequest } from '../types/chat.types';
+import type {CreateChatRequest, ChatResponse} from '../types/chat.types';
 
 const API_BASE_URL = 'http://localhost:8080/api';
 
