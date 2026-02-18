@@ -1,20 +1,32 @@
 import type { AgentConfig } from "../../../types/chat.types";
 import AvatarSelector from "./AvatarSelector";
 import { PERSONALITIES, MOODS, AVATARS } from "../../../types/modal.constants.ts";
+import { useRef } from "react";
 
 interface AgentSectionProps {
     title: string;
     agent: AgentConfig;
     neuralNetworkLabel: string;
     onChange: (field: keyof AgentConfig, value: string) => void;
+    onPhotoChange?: (file: File | null) => void;
 }
 
 export default function AgentSection({
-                                         title,
-                                         agent,
-                                         neuralNetworkLabel,
-                                         onChange
-                                     }: AgentSectionProps) {
+    title,
+    agent,
+    neuralNetworkLabel,
+    onChange,
+    onPhotoChange
+}: AgentSectionProps) {
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0] || null;
+        if (onPhotoChange) {
+            onPhotoChange(file);
+        }
+    };
+
     return (
         <div className="agent-section">
             <h3>{title}</h3>
@@ -44,6 +56,7 @@ export default function AgentSection({
                     className="form-select"
                     value={agent.personality}
                     onChange={(e) => onChange("personality", e.target.value)}
+                    required
                 >
                     <option value="">Выберите характер</option>
                     {PERSONALITIES.map((p, i) => (
@@ -73,6 +86,19 @@ export default function AgentSection({
                     onSelect={(ava) => onChange("avatar", ava)}
                 />
             </div>
+
+            {onPhotoChange && (
+                <div className="form-group">
+                    <label>ЗАГРУЗИТЬ ФОТО</label>
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                        accept="image/*"
+                        className="file-input"
+                    />
+                </div>
+            )}
         </div>
     );
 }

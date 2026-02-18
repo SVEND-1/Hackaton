@@ -1,18 +1,16 @@
-package org.example.hackaton.minio.api;
+package org.example.hackaton.images.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.hackaton.exception.ImageUploadException;
-import org.example.hackaton.minio.service.ImageService;
+import org.example.hackaton.exception.FileUploadException;
+import org.example.hackaton.images.service.ImageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -31,7 +29,7 @@ public class ImageController {
         log.info("📤 Запрос на загрузку: {}", file.getOriginalFilename());
 
         try {
-            String fileName = imageService.upload(file);
+            String fileName = imageService.uploadImage(file);
 
             Map<String, Object> response = new HashMap<>();
             response.put("success", true);
@@ -47,7 +45,7 @@ public class ImageController {
 
             return ResponseEntity.ok(response);
 
-        } catch (ImageUploadException e) {
+        } catch (FileUploadException e) {
             log.error("Ошибка загрузки: {}", e.getMessage());
 
             Map<String, Object> error = new HashMap<>();
@@ -72,7 +70,7 @@ public class ImageController {
     public ResponseEntity<String> giveLinkToImage(
             @PathVariable("id") Long id
     ) {
-        String url = imageService.getLink(id);
+        String url = imageService.getImageLink(id);
 
         return ResponseEntity.ok(url);
     }
@@ -82,7 +80,7 @@ public class ImageController {
     public ResponseEntity<Void> deleteImage(
             @PathVariable("id") Long id
     ) {
-        imageService.delete(id);
+        imageService.deleteImage(id);
 
         return ResponseEntity.ok().build();
     }

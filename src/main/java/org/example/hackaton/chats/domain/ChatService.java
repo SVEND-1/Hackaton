@@ -34,7 +34,7 @@ public class ChatService {
         ChatEntity chatEntity = chatRepository.findById(chatId)
                 .orElseThrow(() -> new EntityNotFoundException("Chat не найден"));
 
-        return chatMapper.convertEntityToDTO(chatEntity);
+        return chatMapper.convertEntityToDTOResponse(chatEntity);
     }
 
     @Transactional(readOnly = true)
@@ -42,12 +42,12 @@ public class ChatService {
         return chatRepository.findById(chatId)
                 .orElseThrow(() -> new EntityNotFoundException("Chat не найден"));
     }
-    
-    @Transactional(readOnly = true)
-    
 
-    public List<ChatEntity> findAllByUserId(Long userId) {
-        return chatRepository.findAllByUserId(userId);
+    public List<ChatResponse> findAllByUserId() {
+        List<ChatEntity> chat = chatRepository.findAllByUserId(userService.getCurrentUser().getId());
+        return chat.stream()
+                .map(chatMapper::convertEntityToDTOResponse)
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -60,7 +60,7 @@ public class ChatService {
                 .name(name)
                 .createdAt(LocalDateTime.now())
                 .agents(agentEntities)
-                .user(UserEntity.builder()
+                .user(UserEntity.builder()//TODO ПОМЕНЯТЬ НА ТЕКУЩЕГО ПОЛЬЗОВАТЕЛЯ
                         .id(1L)
                         .email("user@example.com")
                         .role(Role.USER)

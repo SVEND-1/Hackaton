@@ -1,0 +1,548 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+}
+
+body {
+    background-color: #0f0f0f;
+    color: #e5e5e5;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* ========== САЙДБАР ========== */
+.sidebar {
+    width: 260px;
+    background-color: #1a1a1a;
+    border-right: 1px solid #2a2a2a;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+}
+
+.logo {
+    padding: 12px 8px 20px 8px;
+    font-size: 32px;
+    font-weight: 600;
+    border-bottom: 1px solid #2a2a2a;
+    margin-bottom: 16px;
+    background: linear-gradient(90deg, #5900ff 10%, #8400ff 20%, #ff7b00 60%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.create-chat-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: linear-gradient(90deg, #2a2a2a, #1a1a1a);
+    border: 1px solid #404040;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.create-chat-btn:hover {
+    background: linear-gradient(90deg, #3a3a3a, #2a2a2a);
+    border-color: #666;
+}
+
+.create-chat-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+}
+
+.nav-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    color: #b0b0b0;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nav-btn:hover, .nav-btn.active {
+    background-color: #2a2a2a;
+    color: #fff;
+}
+
+.nav-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+}
+
+.profile-section {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #2a2a2a;
+}
+
+.profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    color: #b0b0b0;
+    text-decoration: none;
+}
+
+.profile-btn:hover {
+    background-color: #2a2a2a;
+    color: #fff;
+}
+
+.profile-avatar {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-avatar svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+}
+
+/* ========== ОСНОВНОЙ КОНТЕНТ ========== */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #0f0f0f;
+    overflow: hidden;
+    position: relative;
+}
+
+.main-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right,
+    rgba(89, 0, 255, 0.06) 0%,
+    rgba(132, 0, 255, 0.04) 40%,
+    rgba(255, 123, 0, 0.01) 80%,
+    transparent 95%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.graph-page {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 30px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.graph-header {
+    margin-bottom: 30px;
+}
+
+.graph-header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, #5900ff, #8400ff, #ff7b00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.graph-header p {
+    color: #8a8a8a;
+    font-size: 14px;
+}
+
+/* ========== ПАНЕЛЬ ЧАТОВ ========== */
+.chats-panel {
+    margin-bottom: 30px;
+}
+
+.chats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.chat-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.chat-card:hover {
+    background-color: #2a2a2a;
+    border-color: #666;
+}
+
+.chat-card-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.chat-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #404040;
+}
+
+.chat-card-icon svg {
+    stroke: #8a8a8a;
+}
+
+.chat-card-info h3 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.chat-card-info p {
+    color: #8a8a8a;
+    font-size: 14px;
+}
+
+.close-chat-btn {
+    background: transparent;
+    border: 1px solid #404040;
+    border-radius: 8px;
+    color: #8a8a8a;
+    cursor: pointer;
+    padding: 8px;
+    transition: all 0.2s;
+}
+
+.close-chat-btn:hover {
+    background-color: #3a1a1a;
+    border-color: #666;
+    color: #ff6b6b;
+}
+
+.close-chat-btn svg {
+    stroke: currentColor;
+}
+
+/* ========== КОНТЕЙНЕР ГРАФА ========== */
+.graph-container {
+    flex: 1;
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 20px;
+    min-height: 500px;
+}
+
+.graph-header-with-close {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.graph-header-with-close h2 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.close-graph-btn {
+    background: transparent;
+    border: 1px solid #404040;
+    border-radius: 30px;
+    color: #b0b0b0;
+    cursor: pointer;
+    padding: 8px 16px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+}
+
+.close-graph-btn:hover {
+    background-color: #2a2a2a;
+    border-color: #666;
+    color: #fff;
+}
+
+.close-graph-btn svg {
+    stroke: currentColor;
+}
+
+/* ========== ЛЕГЕНДА ========== */
+.graph-legend {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 16px;
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #b0b0b0;
+    font-size: 14px;
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+}
+
+/* ========== МОДАЛЬНОЕ ОКНО ========== */
+.agent-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.agent-modal.show {
+    display: flex;
+}
+
+.agent-modal-content {
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.agent-modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #2a2a2a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.agent-modal-header h2 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+    background: linear-gradient(90deg, #5900ff, #8400ff, #ff6600);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.close-modal {
+    background: none;
+    border: 1px solid #404040;
+    border-radius: 8px;
+    color: #8a8a8a;
+    font-size: 24px;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    background-color: #2a2a2a;
+    border-color: #666;
+    color: #fff;
+}
+
+.agent-modal-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.agent-section h3 {
+    color: #b0b0b0;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.agent-section p {
+    color: #fff;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.relationship-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.relationship-label {
+    color: #8a8a8a;
+    font-size: 14px;
+}
+
+.relationship-value {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid transparent;
+}
+
+.relationship-value.sympathy {
+    background-color: #1a3a1a;
+    color: #4caf50;
+    border-color: #4caf50;
+}
+
+.relationship-value.antipathy {
+    background-color: #3a1a1a;
+    color: #f44336;
+    border-color: #f44336;
+}
+
+.relationship-value.neutral {
+    background-color: #2a2a2a;
+    color: #b0b0b0;
+    border-color: #404040;
+}
+
+/* ========== АДАПТИВНОСТЬ ========== */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 80px;
+    }
+
+    .sidebar .logo {
+        font-size: 12px;
+        padding: 12px 0;
+        text-align: center;
+    }
+
+    .create-chat-btn span,
+    .nav-btn span,
+    .profile-btn span,
+    .graph-header p,
+    .chat-card-info p,
+    .legend-item span {
+        display: none;
+    }
+
+    .create-chat-btn,
+    .nav-btn,
+    .profile-btn {
+        justify-content: center;
+        padding: 12px;
+    }
+
+    .chat-card {
+        padding: 12px;
+    }
+
+    .chat-card-content {
+        gap: 8px;
+    }
+
+    .chat-card-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .create-chat-btn svg,
+    .chat-card-icon svg,
+    .nav-btn svg,
+    .profile-avatar svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .graph-header h1 {
+        font-size: 20px;
+    }
+
+    .graph-legend {
+        padding: 10px;
+        gap: 12px;
+    }
+
+    .close-graph-btn span {
+        display: inline !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .graph-page {
+        padding: 20px;
+    }
+
+    .graph-header h1 {
+        font-size: 18px;
+    }
+
+    .graph-legend {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}

@@ -1,6 +1,5 @@
 package org.example.hackaton.messages.domain;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.hackaton.agent.db.AgentEntity;
@@ -40,9 +39,8 @@ public class MessageService {
         }
         return builder.toString();
     }
-
     @Transactional(readOnly = true)
-    public  List<MessageEntity> getAllByChatIdEntity(Long chatId) {
+    public List<MessageEntity> getAllByChatIdEntity(Long chatId) {
         return repository.findAllByChatId(chatId);
     }
 
@@ -58,46 +56,37 @@ public class MessageService {
 
     @Transactional
     public MessageEntity save(String content, Long agentId,Long chatId) {
-        MessageEntity entity = MessageEntity.builder()
-                .type(TypeMessage.DEEPSEK)
-                .content(content)
-                .createdAt(LocalDateTime.now())
-                .agent(agentService.getAgent(agentId))
-                .chat(chatService.getChat(chatId))
-                .build();
-        return repository.save(entity);
-    }
-
-    @Transactional(readOnly = true)
-    public String lastMessage(Long chatId) {
-        Optional<MessageEntity> message = repository.findFirstByChatIdOrderByCreatedAtDesc(chatId);
-        if(message.isPresent()) {
-            return message.get().getContent();
-        }
-        else{
-            return "Привет, начни наш диалог";
+        try {
+            MessageEntity entity = MessageEntity.builder()
+                    .type(TypeMessage.DEEPSEK)
+                    .content(content)
+                    .createdAt(LocalDateTime.now())
+                    .agent(agentService.getAgent(agentId))
+                    .chat(chatService.getChat(chatId))
+                    .build();
+            return repository.save(entity);
+        }catch (Exception e){
+            log.error("Не получилось сохранить сообщение,ex={}", e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 
-    public long getCountMessagesChat(Long chatId) {
-        return repository.countMessagesByChatId(chatId);
-    }
-
-    public Long getQueueAI(Long chatId) {
-        ChatEntity chat = chatService.getChat(chatId);
-        long messageCount = getCountMessagesChat(chatId);
-
-        Set<AgentEntity> agents = chat.getAgents();
-
-        if (agents == null || agents.isEmpty()) {
-            throw new EntityNotFoundException("В чате " + chatId + " нет агентов");
+    @Transactional
+    public MessageEntity saveEvent(String content, Long chatId) {
+        try {
+            ChatEntity chat = chatService.getChat(chatId);//TODO ПЕРЕПИСАТЬ МЕТОД
+            MessageEntity entity = MessageEntity.builder()
+                    .type(TypeMessage.DEEPSEK)
+                    .content(content)
+                    .createdAt(LocalDateTime.now())
+                    .agent(chat.getAgents().stream().findFirst().orElse(null))
+                    .chat(chat)
+                    .build();
+            return repository.save(entity);
+        }catch (Exception e){
+            log.error("Не удалось сохранить event,ex={}", e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
-
-        List<AgentEntity> agentList = new ArrayList<>(agents);
-
-        int index = (int)(messageCount % agentList.size());
-        return agentList.get(index).getId();
     }
-
 
 }

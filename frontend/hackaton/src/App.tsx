@@ -8,6 +8,7 @@ import Profile from "./pages/Profile.tsx";
 import ForgotPassword from "./pages/ForgotPassword.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
 import VerifyResetCode from "./pages/VerifyResetCode.tsx";
+import Graph from "./pages/Graph.tsx";
 
 function App() {
     return (
@@ -16,12 +17,13 @@ function App() {
                 <Route path="/" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/verify" element={<VerifyRegister />} />
-                <Route path="/verifyCode" element={<VerifyResetCode />} />
+                <Route path="/reset-verify" element={<VerifyResetCode />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/chat" element={<Chat />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/forgotPassword" element={<ForgotPassword />} />
-                <Route path="/resetPassword" element={<ResetPassword />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path={"/graph"} element={<Graph />}/>
             </Routes>
         </BrowserRouter>
     );

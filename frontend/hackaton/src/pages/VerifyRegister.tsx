@@ -1,26 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { verifyRegister } from "../api/authApi";
 import "../styles/AuthForm.css";
 
 export default function VerifyRegister() {
-    const [code, setCode] = useState("");
+    const [code, setCode] = useState<string>("");
     const [params] = useSearchParams();
     const navigate = useNavigate();
 
-    const registrationId = params.get("registrationId") || "";
+    const registrationId = params.get("registrationId");
+
+    useEffect(() => {
+        if (!registrationId) {
+            alert("Некорректная ссылка подтверждения");
+            navigate("/");
+        }
+    }, [registrationId, navigate]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!registrationId) return;
+
         try {
-            const response = await verifyRegister({ registrationId, code });
+            const response = await verifyRegister({
+                registrationId,
+                code,
+            });
+
             if (response.data.success) {
+                alert("Регистрация подтверждена");
                 navigate("/dashboard");
             } else {
-                alert(response.data.message);
+                alert(response.data.message || "Ошибка подтверждения");
             }
-        } catch {
-            alert("Неверный код");
+
+        } catch (error: any) {
+            console.error("Verify error:", error);
+            alert(
+                error.response?.data?.message ||
+                "Неверный код или ошибка сервера"
+            );
         }
     };
 
@@ -30,9 +50,12 @@ export default function VerifyRegister() {
                 <div className="auth-form">
                     <h2 className="auth-title">AI chats</h2>
                     <h3 className="auth-title3">Verification</h3>
+
                     <form onSubmit={handleSubmit}>
                         <div className="input-group">
-                            <label className="input-label">Verification code</label>
+                            <label className="input-label">
+                                Verification code
+                            </label>
                             <input
                                 type="text"
                                 value={code}
@@ -42,9 +65,11 @@ export default function VerifyRegister() {
                                 required
                             />
                         </div>
+
                         <button type="submit" className="submit-button">
                             Подтвердить код
                         </button>
+
                         <p
                             onClick={() => navigate("/")}
                             className="auth-link"

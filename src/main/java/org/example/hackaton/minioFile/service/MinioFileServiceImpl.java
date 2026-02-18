@@ -1,15 +1,11 @@
-package org.example.hackaton.minio.service;
+package org.example.hackaton.minioFile.service;
 
 import io.minio.*;
 import io.minio.http.Method;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.example.hackaton.exception.ImageUploadException;
-import org.example.hackaton.minio.db.ImageEntity;
-import org.example.hackaton.minio.db.ImageRepository;
-import org.example.hackaton.minio.properties.MinioProperties;
+import org.example.hackaton.exception.FileUploadException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,24 +16,22 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ImageServiceImpl implements ImageService {
+public class MinioFileServiceImpl implements MinioFileService {
 
     private final MinioClient minioClient;
-    private final MinioProperties minioProperties;
-    private final ImageRepository imageRepository;
 
     private final int EXPIRY_HOURS = 24;
 
     @Override
-    public String upload(MultipartFile file) {
+    public String upload(MultipartFile file, String bucketName) {
         try {
-            createBucket();
+            createBucketIfNotExist(bucketName);
         } catch (Exception e) {
-            throw new ImageUploadException("Image upload failed " + e.getMessage());
+            throw new FileUploadException("File upload failed " + e.getMessage());
         }
 
         if (file.isEmpty() || file.getOriginalFilename() == null) {
-            throw new ImageUploadException("Image must have name");
+            throw new FileUploadException("File must have name");
         }
 
         String fileName = generateFileName(file);
@@ -45,23 +39,20 @@ public class ImageServiceImpl implements ImageService {
         try {
             inputStream = file.getInputStream();
         } catch (Exception e) {
-            throw new ImageUploadException("Image upload failed " + e.getMessage());
+            throw new FileUploadException("File upload failed " + e.getMessage());
         }
 
-        saveImage(inputStream, fileName);
+        saveFile(inputStream, fileName, bucketName);
         return fileName;
     }
 
     @SneakyThrows
     @Override
-    public String getLink(Long imageId) {
-        ImageEntity image = imageRepository.findById(imageId)
-                .orElseThrow(() -> new EntityNotFoundException("Image with id " + imageId + " does not exist"));
-        String fileName = image.getImage();
+    public String getLink(String fileName, String bucketName) {
 
         return minioClient.getPresignedObjectUrl(
                 GetPresignedObjectUrlArgs.builder()
-                        .bucket(minioProperties.getBucketName())
+                        .bucket(bucketName)
                         .object(fileName)
                         .method(Method.GET)
                         .expiry(EXPIRY_HOURS, TimeUnit.HOURS)
@@ -71,30 +62,23 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @SneakyThrows
-    public void delete(Long imageId) {
-
-        ImageEntity image = imageRepository.findById(imageId)
-                .orElseThrow(() -> new EntityNotFoundException("Image with id " + imageId + " does not exist"));
-        String fileName = image.getImage();
-
+    public void delete(String fileName, String bucketName) {
         minioClient.removeObject(RemoveObjectArgs.builder()
-                .bucket(minioProperties.getBucketName())
+                .bucket(bucketName)
                 .object(fileName)
                 .build());
         log.info("Файл удален: {}", fileName);
-
-        imageRepository.delete(image);
     }
 
     @SneakyThrows
-    private void createBucket() {
+    private void createBucketIfNotExist(String bucketName) {
         boolean found = minioClient.bucketExists(BucketExistsArgs.builder()
-                .bucket(minioProperties.getBucketName())
+                .bucket(bucketName)
                 .build());
 
         if (!found) {
             minioClient.makeBucket(MakeBucketArgs.builder()
-                    .bucket(minioProperties.getBucketName())
+                    .bucket(bucketName)
                     .build());
         }
     }
@@ -105,20 +89,17 @@ public class ImageServiceImpl implements ImageService {
     }
 
     private String getExtension(MultipartFile file) {
+        file.getContentType();
         return file.getOriginalFilename()
                 .substring(file.getOriginalFilename().lastIndexOf(".") + 1);
     }
 
     @SneakyThrows
-    private void saveImage(InputStream inputStream, String fileName) {
+    private void saveFile(InputStream inputStream, String fileName, String bucketName) {
         minioClient.putObject(PutObjectArgs.builder()
                 .stream(inputStream, inputStream.available(), -1)
-                .bucket(minioProperties.getBucketName())
+                .bucket(bucketName)
                 .object(fileName)
                 .build());
-
-        ImageEntity imageEntity = new ImageEntity();
-        imageEntity.setImage(fileName);
-        imageRepository.save(imageEntity);
     }
 }

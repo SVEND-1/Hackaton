@@ -1,4 +1,4 @@
-package org.example.hackaton.minio.properties;
+package org.example.hackaton.minioFile.properties;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +17,6 @@ public class MinioProperties {
     private String endpoint;
     private String accessKey;
     private String secretKey;
-    private String bucketName;
-
+    private String bucketNamePhoto;
+    private String bucketNameBackups;
 }

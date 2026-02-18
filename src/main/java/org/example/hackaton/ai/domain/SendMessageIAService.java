@@ -1,14 +1,13 @@
-package org.example.hackaton.ai;
+package org.example.hackaton.ai.domain;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.hackaton.agent.db.AgentEntity;
-import org.example.hackaton.agent.domain.AgentService;
 import org.example.hackaton.chats.db.ChatEntity;
 import org.example.hackaton.chats.domain.ChatService;
 import org.example.hackaton.messages.db.MessageEntity;
 import org.example.hackaton.messages.domain.MessageService;
-import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,25 +20,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class SendMessageIAService {
-    private final ChatModel model;
+    private final OllamaChatModel model;
     private final MessageService messageService;
     private static final int MAX_DIALOG_TURNS = 10;
     private final ChatService chatService;
 
-//    public String sendMessage(Long chatId) {//ОТПРАВКА СООбщение
-//        Prompt prompt = new Prompt(messageService.getAllByChatId(chatId));
-//
-//        String answer = model.call(messageService.lastMessage(chatId));
-//
-//        messageService.save(
-//                answer,
-//                messageService.getQueueAI(chatId),
-//                chatId
-//        );
-//        return answer;
-//    }
 
-
+    @Transactional
     public List<String> startAgentDialog(Long chatId) {//TODO НОВАЯ ОПТИМИЗИРОВАННАЯ ВЕРСИЯ Подумать может как то ещё лучше можно
         List<String> dialogHistory = new ArrayList<>();
 
@@ -70,7 +57,8 @@ public class SendMessageIAService {
         for (int turn = 0; turn < MAX_DIALOG_TURNS; turn++) {
             long startTime = System.currentTimeMillis();
 
-            int agentIndex = (int)((messageService.getCountMessagesChat(chatId) + turn) % agents.size());
+            int currentMessageCount = allMessages.size();
+            int agentIndex = currentMessageCount % agents.size();
             Long speakingAgentId = agents.get(agentIndex).getId();
 
 
@@ -108,6 +96,10 @@ public class SendMessageIAService {
         }
 
         return dialogHistory;
+    }
+
+    public void event(String event, Long chatId) {//TODO сделать event отдельным entity
+        messageService.saveEvent("Теперь оба собеседника должны: " + event, chatId);
     }
 
     private String buildFullContext(List<MessageEntity> messages) {
