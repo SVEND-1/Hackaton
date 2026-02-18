@@ -2,16 +2,24 @@
 
 ## Участники проекта
 
-- **Напалков Никита"" - Backend, Team Lead [https://github.com/SVEND-1]
+- **Напалков Никита** - Backend, Team Lead [https://github.com/SVEND-1]
 - **Ким Богдан** — Backend [https://github.com/Legend8883]
 - **Напалков Данил** — Frontend [https://github.com/daniiiiiiiiiiil]
 - **Куланов Иван** — Frontend [https://github.com/pslgod1]
 - **Корделяну Георгий** — Frontend [https://github.com/IMM0RR]
 
 ### Stack
-Backend - Spring boot,Spring AI,Spring Secutiry,Spring JPA,Spring Validate,Spring Mail
-          JWT,Postgres Vector,Ollama,Kafka,Mapstruct,Swagger(OpenAPI),Lombok,Minio
-Frontend - React,TypeScript,html,css,d3
+
+### Backend
+- **Spring Boot**, Spring AI, Spring Security, Spring JPA, Spring Validate, Spring Mail
+- JWT, Postgres (с векторным поиском), Ollama, Kafka
+- Mapstruct, Lombok
+- Swagger (OpenAPI), Minio
+
+### Frontend
+- React, TypeScript
+- HTML, CSS
+- d3.j
 
 ### Требования
 
