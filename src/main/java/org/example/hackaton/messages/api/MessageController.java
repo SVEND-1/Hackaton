@@ -17,11 +17,10 @@ public class MessageController {
 
     @PostMapping
     public MessageEntity createMessage(
-            @RequestParam TypeMessage type,
             @RequestParam String content,
             @RequestParam Long agentId,
             @RequestParam Long chatId
             ) {
-        return messageService.save(type, content, agentId, chatId);
+        return messageService.save(content, agentId, chatId);
     }
 }

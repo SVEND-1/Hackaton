@@ -19,6 +19,6 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<UserDTO> getProfile() {
-        return ResponseEntity.ok(userMapper.convertEntityToDto(userService.getCurrentUser()));
+        return ResponseEntity.ok(userMapper.convertEntityToDto(userService.getCurrentUser()));//TODO Поменять
     }
 }
