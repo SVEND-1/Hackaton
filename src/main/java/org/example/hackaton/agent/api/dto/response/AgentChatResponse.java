@@ -7,5 +7,5 @@ import java.util.List;
 public record AgentChatResponse(
         List<MessageDTO> messages,
         AgentDTO agentDTO
-){
+) {
 }

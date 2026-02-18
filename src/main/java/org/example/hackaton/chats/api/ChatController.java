@@ -7,10 +7,13 @@ import org.example.hackaton.chats.api.dto.request.CreateChatRequest;
 import org.example.hackaton.chats.api.dto.responese.ChatCreateResponse;
 import org.example.hackaton.chats.api.dto.responese.ChatResponse;
 import org.example.hackaton.chats.domain.ChatService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/chats")
@@ -30,6 +33,7 @@ public class ChatController {
     public ResponseEntity<ChatResponse> getMessage(@PathVariable Long id) {
         return ResponseEntity.ok(chatService.getChatDTO(id));
     }
+
 
     @Operation(summary = "Создание AI-агентов и чата")
     @PostMapping

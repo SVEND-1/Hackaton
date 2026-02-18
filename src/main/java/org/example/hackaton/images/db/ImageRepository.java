@@ -1,4 +1,4 @@
-package org.example.hackaton.minio.db;
+package org.example.hackaton.images.db;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
