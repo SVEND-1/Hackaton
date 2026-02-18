@@ -34,7 +34,7 @@ public class ChatService {
         ChatEntity chatEntity = chatRepository.findById(chatId)
                 .orElseThrow(() -> new EntityNotFoundException("Chat не найден"));
 
-        return chatMapper.convertEntityToDTO(chatEntity);
+        return chatMapper.convertEntityToDTOResponse(chatEntity);
     }
 
     @Transactional(readOnly = true)
