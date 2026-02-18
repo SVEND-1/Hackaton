@@ -25,19 +25,6 @@ public class SendMessageIAService {
     private static final int MAX_DIALOG_TURNS = 10;
     private final ChatService chatService;
 
-//    public String sendMessage(Long chatId) {//ОТПРАВКА СООбщение
-//        Prompt prompt = new Prompt(messageService.getAllByChatId(chatId));
-//
-//        String answer = model.call(messageService.lastMessage(chatId));
-//
-//        messageService.save(
-//                answer,
-//                messageService.getQueueAI(chatId),
-//                chatId
-//        );
-//        return answer;
-//    }
-
 
     @Transactional
     public List<String> startAgentDialog(Long chatId) {//TODO НОВАЯ ОПТИМИЗИРОВАННАЯ ВЕРСИЯ Подумать может как то ещё лучше можно
@@ -111,7 +98,7 @@ public class SendMessageIAService {
         return dialogHistory;
     }
 
-    public void event(String event, Long chatId) {
+    public void event(String event, Long chatId) {//TODO сделать event отдельным entity
         messageService.saveEvent("Теперь оба собеседника должны: " + event, chatId);
     }
 

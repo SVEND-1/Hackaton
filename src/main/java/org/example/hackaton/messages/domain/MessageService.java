@@ -66,12 +66,13 @@ public class MessageService {
 
     @Transactional
     public MessageEntity saveEvent(String content, Long chatId) {
+        ChatEntity chat = chatService.getChat(chatId);//TODO ПЕРЕПИСАТЬ МЕТОД
         MessageEntity entity = MessageEntity.builder()
                 .type(TypeMessage.DEEPSEK)
                 .content(content)
                 .createdAt(LocalDateTime.now())
-                .agent(null)
-                .chat(chatService.getChat(chatId))
+                .agent(chat.getAgents().stream().findFirst().orElse(null))
+                .chat(chat)
                 .build();
         return repository.save(entity);
     }
