@@ -21,7 +21,7 @@ public class ChatEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;//todo название чата
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -38,11 +38,4 @@ public class ChatEntity {
     @Column(name = "create_at")
     private LocalDateTime createdAt;
 
-    public void addMessage(MessageEntity message) {
-        messages.add(message);
-    }
-
-    public void removeMessage(MessageEntity message) {
-        messages.remove(message);
-    }
 }

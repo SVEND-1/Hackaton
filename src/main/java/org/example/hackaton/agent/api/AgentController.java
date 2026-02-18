@@ -1,5 +1,10 @@
 package org.example.hackaton.agent.api;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.example.hackaton.agent.api.dto.response.AgentProfileResponse;
@@ -17,15 +22,21 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/agents")
 @RequiredArgsConstructor
-@Tag(name = "Агенты", description = "Управление AI-агентами")
+@Tag(name = "Agent", description = "Управление AI-агентами")
 public class AgentController {
 
     private final AgentService agentService;
     private final MessageService messageService;
     private final OllamaChatModel model;
 
+    @ApiResponse(
+            responseCode = "200",description = "Получен профиль AI-агента",
+            content = {@Content(mediaType = "application/json",
+            schema = @Schema(implementation = AgentProfileResponse.class))}
+    )
+    @Operation(summary = "Получения профиля AI-агента")
     @GetMapping("/{id}/{chatId}")
-    public AgentProfileResponse getProfile( @PathVariable("id") Long id,
+    public AgentProfileResponse getProfile(@PathVariable("id") Long id,
                                 @PathVariable("chatId") Long chatId) {
         String fullContext = messageService.getAllByChatId(chatId);
         String agentContext = messageService.getAllByAgentId(id);
@@ -58,15 +69,21 @@ public class AgentController {
         );
     }
 
+    @Operation(summary = "Изменения настроение AI-агента")
     @PutMapping("/{id}/change-mood")
-    public ResponseEntity<AgentEntity> changeMood(@PathVariable Long id,
-                                             @RequestBody Mood mood) {
+    public ResponseEntity<AgentEntity> changeMood(
+                                    @PathVariable Long id,
+                                    @Parameter(description = "Новое настроение Ai-агента")
+                                    @RequestBody Mood mood) {
         return ResponseEntity.ok(agentService.changeMood(id,mood));
     }
 
+    @Operation(summary = "Изменения характера AI-агента")
     @PutMapping("/{id}/change-personality")
-    public ResponseEntity<AgentEntity> changePersonality(@PathVariable Long id,
-                                                         @RequestBody Personality personality) {
+    public ResponseEntity<AgentEntity> changePersonality(
+                                    @PathVariable Long id,
+                                    @Parameter(description = "Новый характер Ai-агента")
+                                    @RequestBody Personality personality) {
         return ResponseEntity.ok(agentService.changePersonality(id,personality));
     }
 }

@@ -1,4 +1,4 @@
-package org.example.hackaton.ai;
+package org.example.hackaton.ai.domain;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +39,7 @@ public class SendMessageIAService {
 //    }
 
 
+    @Transactional
     public List<String> startAgentDialog(Long chatId) {//TODO НОВАЯ ОПТИМИЗИРОВАННАЯ ВЕРСИЯ Подумать может как то ещё лучше можно
         List<String> dialogHistory = new ArrayList<>();
 
@@ -69,7 +70,8 @@ public class SendMessageIAService {
         for (int turn = 0; turn < MAX_DIALOG_TURNS; turn++) {
             long startTime = System.currentTimeMillis();
 
-            int agentIndex = (int)((messageService.getCountMessagesChat(chatId) + turn) % agents.size());
+            int currentMessageCount = allMessages.size();
+            int agentIndex = currentMessageCount % agents.size();
             Long speakingAgentId = agents.get(agentIndex).getId();
 
 

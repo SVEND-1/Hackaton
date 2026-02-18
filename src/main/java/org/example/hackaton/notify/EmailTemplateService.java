@@ -14,18 +14,18 @@ public class EmailTemplateService {
 
     public String getSubject(NotifyType type, Map<String, String> params) {
         if (type == null || params == null) {
-            return "Уведомление от TodoList";
+            return "Уведомление от Hackaton";
         }
 
         return switch (type) {
-            case REGISTER -> String.format("TodoList: Ваш код для входа [%s]",
+            case REGISTER -> String.format("Hackaton: Ваш код для входа [%s]",
                     params.getOrDefault("code", ""));
-            case PASSWORD_RESET -> String.format("TodoList: Сброс пароля [%s]",
+            case PASSWORD_RESET -> String.format("Hackaton: Сброс пароля [%s]",
                     params.getOrDefault("code", ""));
-            case REPLAY_CODE -> String.format("TodoList: Повторный код [%s]",
+            case REPLAY_CODE -> String.format("Hackaton: Повторный код [%s]",
                     params.getOrDefault("code", ""));
-            case LOGIN -> "TodoList: Вход в аккаунт";
-            default -> "Уведомление от TodoList";
+            case LOGIN -> "Hackaton: Вход в аккаунт";
+            default -> "Уведомление от Hackaton";
         };
     }
 
@@ -36,7 +36,7 @@ public class EmailTemplateService {
 
         return switch (type) {
             case REGISTER -> String.format("""
-                Добро пожаловать в TodoList!
+                Добро пожаловать в Hackaton!
                 
                 Ваш код для входа: %s
                 
@@ -45,7 +45,7 @@ public class EmailTemplateService {
                 Если вы не запрашивали вход, пожалуйста, проигнорируйте это письмо.
                 
                 С уважением,
-                Команда TodoList
+                Команда Hackaton
                 """, params.getOrDefault("code", ""));
 
             case PASSWORD_RESET -> String.format("""
@@ -58,7 +58,7 @@ public class EmailTemplateService {
                 Если вы не запрашивали сброс пароля, проигнорируйте это письмо.
                 
                 С уважением,
-                Команда TodoList
+                Команда Hackaton
                 """, params.getOrDefault("code", ""));
 
             case REPLAY_CODE -> String.format("""
@@ -67,7 +67,7 @@ public class EmailTemplateService {
                 Ваш повторный код: %s
                 
                 С уважением,
-                Команда TodoList
+                Команда Hackaton
                 """, params.getOrDefault("code", ""));
 
             case LOGIN -> String.format("""
@@ -78,7 +78,7 @@ public class EmailTemplateService {
                 Если это были не вы, пожалуйста, свяжитесь со службой поддержки.
                 
                 С уважением,
-                Команда TodoList
+                Команда Hackaton
                 """, params.getOrDefault("userName", ""));
 
             default -> "";
