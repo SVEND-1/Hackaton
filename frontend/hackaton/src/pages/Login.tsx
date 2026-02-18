@@ -1,23 +1,47 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api/authApi";
-import AuthContainer from "../components/auth/AuthContainer.tsx";
-import AuthTitle from "../components/auth/AuthTitle.tsx";
-import AuthSubtitle from "../components/auth/AuthSubtitle.tsx";
-import LoginForm from "../components/auth/LoginForm.tsx";
+import AuthContainer from "../components/auth/AuthContainer";
+import AuthTitle from "../components/auth/AuthTitle";
+import AuthSubtitle from "../components/auth/AuthSubtitle";
+import LoginForm from "../components/auth/LoginForm";
+import type { LoginResponse } from "../api/authApi";
 
 export default function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
         try {
-            await login({ email, password });
-            navigate("/dashboard");
-        } catch (error) {
-            alert("Ошибка входа");
+            const response = await login({ email, password });
+
+            const data: LoginResponse = response.data;
+
+            if (data.success) {
+                // сохраняем токен
+                localStorage.setItem("token", data.token);
+
+                // можно сохранить пользователя при необходимости
+                if (data.user) {
+                    localStorage.setItem("user", JSON.stringify(data.user));
+                }
+
+                navigate("/dashboard");
+            } else {
+                alert(data.message || "Неверные данные");
+            }
+
+        } catch (error: any) {
+            console.error("Login error:", error);
+
+            const message =
+                error.response?.data?.message ||
+                "Ошибка соединения с сервером";
+
+            alert(message);
         }
     };
 
@@ -27,6 +51,7 @@ export default function Login() {
                 <div className="auth-form">
                     <AuthTitle>AI chats</AuthTitle>
                     <AuthSubtitle>login</AuthSubtitle>
+
                     <LoginForm
                         email={email}
                         setEmail={setEmail}

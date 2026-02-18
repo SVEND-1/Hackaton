@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { resetPassword } from "../api/authApi";
 import AuthContainer from "../components/auth/AuthContainer";
@@ -13,16 +13,21 @@ export default function ResetPassword() {
     const navigate = useNavigate();
 
     const resetId = searchParams.get("resetId");
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+
+    const [newPassword, setNewPassword] = useState<string>("");
+    const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+    useEffect(() => {
+        if (!resetId) {
+            alert("Некорректная ссылка восстановления");
+            navigate("/");
+        }
+    }, [resetId, navigate]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!resetId) {
-            alert("Некорректная ссылка восстановления");
-            return;
-        }
+        if (!resetId) return;
 
         try {
             const response = await resetPassword({
@@ -32,12 +37,18 @@ export default function ResetPassword() {
             });
 
             if (response.data.success) {
-                navigate("/dashboard");
+                alert("Пароль успешно изменён");
+                navigate("/");
             } else {
-                alert(response.data.message);
+                alert(response.data.message || "Ошибка сброса");
             }
-        } catch (error) {
-            alert("Ошибка при сбросе пароля");
+
+        } catch (error: any) {
+            console.error(error);
+            alert(
+                error.response?.data?.message ||
+                "Ошибка при сбросе пароля"
+            );
         }
     };
 
@@ -47,6 +58,7 @@ export default function ResetPassword() {
                 <div className="auth-form">
                     <AuthTitle>AI chats</AuthTitle>
                     <AuthSubtitle>reset password</AuthSubtitle>
+
                     <ResetPasswordForm
                         newPassword={newPassword}
                         setNewPassword={setNewPassword}
