@@ -12,7 +12,7 @@
 
 ### Backend
 - **Spring Boot**, Spring AI, Spring Security, Spring JPA, Spring Validate, Spring Mail
-- JWT, Postgres (с векторным поиском), Ollama, Kafka
+- Kafka,JWT, Postgres (с векторным поиском), Ollama
 - Mapstruct, Lombok
 - Swagger (OpenAPI), Minio
 
