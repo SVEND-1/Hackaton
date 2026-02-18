@@ -1,0 +1,488 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+}
+
+body {
+    background-color: #0f0f0f;
+    color: #e5e5e5;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* ========== СТИЛИ ДЛЯ САЙДБАРА ========== */
+.sidebar {
+    width: 260px;
+    background-color: #1a1a1a;
+    border-right: 1px solid #2a2a2a;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    position: relative;
+}
+
+.logo {
+    padding: 12px 8px 20px 8px;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #2a2a2a;
+    margin-bottom: 16px;
+    
+    background: linear-gradient(90deg, #5900ff 10%, #8400ff 20%, #ff7b00 60%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    color: #b0b0b0;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+}
+
+.nav-btn:hover {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.nav-btn.active {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.nav-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+}
+
+/* ========== СТИЛИ ДЛЯ ПРОФИЛЯ ВНИЗУ ========== */
+.profile-section {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #2a2a2a;
+}
+
+.profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    color: #b0b0b0;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+}
+
+.profile-btn:hover {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.profile-avatar {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-avatar svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    fill: none;
+}
+
+/* ========== ОСНОВНОЙ КОНТЕНТ ========== */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #0f0f0f;
+    overflow: hidden;
+}
+
+/* ========== СТИЛИ ДЛЯ СТРАНИЦЫ ДАШБОРДА ========== */
+.dashboard-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 30px;
+}
+
+.dashboard-header {
+    margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    
+}
+
+.dashboard-header p {
+    font-size: 14px;
+    color: #8a8a8a;
+}
+
+/* Сетка статистики */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 24px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.stat-card:hover {
+    border-color: #646464;
+}
+
+.stat-title {
+    color: #8a8a8a;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.stat-value {
+    color: #ffffff;
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    
+    background: linear-gradient(90deg, #ffffff 0%, #b0b0b0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-desc {
+    color: #5a5a5a;
+    font-size: 13px;
+}
+
+/* Лента событий (пустая) */
+.events-feed {
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 30px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.events-header h3 {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.events-count {
+    color: #8a8a8a;
+    font-size: 12px;
+    padding: 4px 8px;
+    background-color: #2a2a2a;
+    border-radius: 20px;
+}
+
+.events-empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #5a5a5a;
+    padding: 40px 20px;
+}
+
+.events-empty svg {
+    stroke: #404040;
+    opacity: 0.5;
+}
+
+.events-empty p {
+    font-size: 16px;
+    color: #8a8a8a;
+}
+
+.events-empty span {
+    font-size: 14px;
+    color: #5a5a5a;
+}
+
+/* Список агентов с сообщениями и настроением */
+.agents-section {
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.agents-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.agents-header h3 {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.agents-header-stats {
+    display: flex;
+    gap: 60px;
+    color: #8a8a8a;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.agents-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.agent-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-radius: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.agent-item:hover {
+    background-color: #2a2a2a;
+}
+
+.agent-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.agent-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: #2a2a2a ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    border: 1px solid #404040;
+}
+
+.agent-name {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.agent-stats {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.agent-messages {
+    color: #b0b0b0;
+    font-size: 14px;
+    min-width: 50px;
+    text-align: center;
+}
+
+.agent-mood {
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 80px;
+    text-align: right;
+}
+
+/* Градиенты для настроения от зеленого до красного */
+.mood-excellent {
+    background: linear-gradient(90deg, #00ff55, #00cc88);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.mood-good {
+    background: linear-gradient(90deg, #00ff00, #75aa44);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.mood-neutral {
+    background: linear-gradient(90deg, #ffff88, #ffff89);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.mood-bad {
+    background: linear-gradient(90deg, #c42929, #f57575);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.mood-terrible {
+    background: linear-gradient(90deg, #ff4444, #cc0070);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Стили для скролла */
+.dashboard-page::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dashboard-page::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.dashboard-page::-webkit-scrollbar-thumb {
+    background: #404040;
+    border-radius: 4px;
+}
+
+.dashboard-page::-webkit-scrollbar-thumb:hover {
+    background: #505050;
+}
+
+/* ========== АДАПТИВНОСТЬ ========== */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 80px;
+    }
+    
+    .sidebar .logo {
+        font-size: 12px;
+        padding: 12px 0;
+        text-align: center;
+    }
+    
+    .nav-btn span,
+    .profile-btn span {
+        display: none;
+    }
+    
+    .nav-btn,
+    .profile-btn {
+        justify-content: center;
+        padding: 12px;
+    }
+    
+    .nav-btn svg,
+    .profile-avatar svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .dashboard-page {
+        padding: 20px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .agents-header-stats {
+        gap: 30px;
+    }
+    
+    .agent-stats {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-header h1 {
+        font-size: 28px;
+    }
+    
+    .events-feed {
+        min-height: 150px;
+    }
+    
+    .agents-header-stats {
+        display: none;
+    }
+    
+    .agent-stats {
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-end;
+    }
+    
+    .agent-mood {
+        min-width: auto;
+    }
+}

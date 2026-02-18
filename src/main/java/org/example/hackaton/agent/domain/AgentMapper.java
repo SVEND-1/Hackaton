@@ -12,8 +12,8 @@ public interface AgentMapper {
     @Mapping(source = "name", target = "name")
     @Mapping(source = "personality", target = "personality")
     @Mapping(source = "mood", target = "mood")
-    @Mapping(target = "type", ignore = true)
     @Mapping(target = "photo", ignore = true)
+    @Mapping(target = "type", ignore = true)
     AgentDTO convertEntityToDTO(AgentEntity entity);
 
     @Mapping(source = "name", target = "name")

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -30,9 +31,10 @@ public class ChatController {
             @RequestParam MultipartFile agentPhoto1,
             @RequestParam MultipartFile agentPhoto2) {
         try {
-            chatService.save(name, agents, agentPhoto1, agentPhoto2);
+            chatService.save(name,agents,agentPhoto1,agentPhoto2);
             return ResponseEntity.ok(true);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return ResponseEntity.ok(false);
         }
     }
