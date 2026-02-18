@@ -1,44 +1,37 @@
-import { axiosInstance } from "./axiosInstance";
-import type { AgentConfig } from "../types/chat.types.ts";
+import type {CreateChatRequest, ChatResponse} from '../types/chat.types';
 
-export interface ChatResponse {
-    id: number;
-    name: string;
-    agents: AgentConfig[];
-}
+const API_BASE_URL = 'http://localhost:8080/api';
 
 export const chatApi = {
-    getAllChats: async (): Promise<ChatResponse[]> => {
-        const response = await axiosInstance.get("/chats");
-        return response.data;
-    },
-
-    getChat: async (id: number): Promise<ChatResponse> => {
-        const response = await axiosInstance.get(`/chats/${id}`);
-        return response.data;
-    },
-
-    createChat: async (name: string, agents: AgentConfig[]): Promise<ChatResponse> => {
-        try {
-            // Преобразуем агентов в формат, который Spring Boot умеет читать
-            const agentsJson = JSON.stringify(agents.map(a => ({
-                name: a.name,
-                avatar: a.avatar || "",
-                personality: a.personality, // уже enum string
-            })));
-
-            const formData = new FormData();
-            formData.append("name", name);
-            formData.append("agents", new Blob([agentsJson], { type: "application/json" }));
-
-            const response = await axiosInstance.post("/chats", formData, {
-                headers: { "Content-Type": "multipart/form-data" },
-            });
-
-            return response.data;
-        } catch (err) {
-            console.error("Create chat error:", err);
-            throw err;
+    async getChat(id: number): Promise<ChatResponse> {
+        const response = await fetch(`${API_BASE_URL}/chats/${id}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch chat');
         }
+        return response.json();
     },
+
+    async createChat(request: CreateChatRequest): Promise<boolean> {
+        const formData = new FormData();
+        formData.append('name', request.name);
+        formData.append('agents', JSON.stringify(request.agents));
+
+        if (request.agentPhoto1) {
+            formData.append('agentPhoto1', request.agentPhoto1);
+        }
+        if (request.agentPhoto2) {
+            formData.append('agentPhoto2', request.agentPhoto2);
+        }
+
+        const response = await fetch(`${API_BASE_URL}/chats`, {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to create chat');
+        }
+
+        return response.json();
+    }
 };
