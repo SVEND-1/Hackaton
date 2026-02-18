@@ -19,6 +19,9 @@
 - HTML, CSS
 - d3.j
 
+### Презентация
+[Скачать презентацию]([https://github.com/username/repo/raw/branch/main/document.pdf](https://github.com/SVEND-1/Hackaton/blob/master/AI%20PARK.pdf))
+
 ### Требования
 
 Для запуска проекта на Linux необходим установленный **Docker** и **Docker Compose**.
