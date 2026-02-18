@@ -10,6 +10,7 @@ import org.example.hackaton.agent.api.dto.response.AgentProfileResponse;
 import org.example.hackaton.messages.db.MessageEntity;
 import org.example.hackaton.messages.db.TypeMessage;
 import org.example.hackaton.messages.domain.MessageService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,11 +32,11 @@ public class MessageController {
     )
     @Operation(summary = "Отправка сообщения в чат")
     @PostMapping
-    public MessageEntity createMessage(
-            @RequestParam String content,
-            @RequestParam Long agentId,
-            @RequestParam Long chatId
+    public ResponseEntity<MessageEntity> createMessage( //TODO DTO
+                                                       @RequestParam String content,
+                                                       @RequestParam Long agentId,
+                                                       @RequestParam Long chatId
             ) {
-        return messageService.save(content, agentId, chatId);
+        return ResponseEntity.ok(messageService.save(content, agentId, chatId));
     }
 }

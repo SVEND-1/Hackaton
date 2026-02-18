@@ -1,17 +1,16 @@
 package org.example.hackaton.chats.api;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.example.hackaton.agent.api.dto.response.AgentDTO;
+import org.example.hackaton.chats.api.dto.request.CreateChatRequest;
+import org.example.hackaton.chats.api.dto.responese.ChatCreateResponse;
 import org.example.hackaton.chats.api.dto.responese.ChatResponse;
 import org.example.hackaton.chats.domain.ChatService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/chats")
@@ -34,18 +33,10 @@ public class ChatController {
 
     @Operation(summary = "Создание AI-агентов и чата")
     @PostMapping
-    public ResponseEntity<Boolean> chat(//TOdo Поменять Response
-            @Parameter(description = "Название чата")
-            @RequestParam String name,
-            @Parameter(description = "Добавление агентов ровна 2")
-            @RequestBody Set<AgentDTO> agents) {
-        try {
-            chatService.save(name,agents);
-            return ResponseEntity.ok(true);
-        }
-        catch (Exception e) {
-            return ResponseEntity.ok(false);
-        }
+    public ResponseEntity<ChatCreateResponse> chat(
+            @RequestBody CreateChatRequest createChatRequest
+    ) {
+        return ResponseEntity.ok(chatService.save(createChatRequest.name(),createChatRequest.agents()));
     }
 
     @Operation(summary = "Удаление чата и AI-агентов каскадно")
