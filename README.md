@@ -20,7 +20,7 @@
 - d3.j
 
 ### Презентация
-[Скачать презентацию](https://github.com/SVEND-1/Hackaton/blob/master/AI%20PARK.pdf)
+[Перейти к презентации](https://github.com/SVEND-1/Hackaton/blob/master/AI%20PARK.pdf)
 
 ### Требования
 
