@@ -3,8 +3,8 @@ import Sidebar from "../components/chat/Sidebar";
 import ChatMainContent from "../components/chat/ChatMainContent";
 import AgentModal from "../components/chat/AgentModal";
 import CreateChatModal from "../components/chat/CreateChatModal/CreateChatModal.tsx";
-import { chatApi } from "../api/chatApi";
-import type { Agent, Message, Chat, ChatAgent, ChatResponse } from "../types/chat.types.ts";
+
+import type { Agent, Message, Chat, ChatAgent } from "../types/chat.types.ts";
 import "../styles/chat.css";
 
 export default function Chat() {
